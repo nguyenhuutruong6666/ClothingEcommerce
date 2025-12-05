@@ -29,6 +29,7 @@ Tài liệu này hướng dẫn cài đặt môi trường, khởi chạy hệ t
 ### 2.1. Cài đặt XAMPP
 
 1. Tải XAMPP từ trang chính thức (phiên bản mới nhất).  
+   - Link: https://www.apachefriends.org/download.html
 2. Chạy file cài đặt, chọn các module:
    - Apache  
    - MySQL  
@@ -39,7 +40,8 @@ Tài liệu này hướng dẫn cài đặt môi trường, khởi chạy hệ t
 
 ### 2.2. Cài đặt JDK (Java Development Kit)
 
-1. Tải **JDK 17 (hoặc 21)** từ trang chính thức của Oracle hoặc Temurin.  
+1. Tải **JDK 17 (hoặc 21)** từ trang chính thức của Oracle.  
+   - Link: https://www.oracle.com/java/technologies/downloads/#jdk25-windows
 2. Cài đặt theo mặc định.  
 3. Mở **Command Prompt** hoặc **PowerShell** và kiểm tra:
 
@@ -52,6 +54,7 @@ Tài liệu này hướng dẫn cài đặt môi trường, khởi chạy hệ t
 ### 2.3. Cài đặt Node.js
 
 1. Tải **Node.js phiên bản LTS** (18.x hoặc 20.x).  
+   - Link: https://nodejs.org/en
 2. Cài đặt theo mặc định.  
 3. Kiểm tra:
 
@@ -63,6 +66,7 @@ Tài liệu này hướng dẫn cài đặt môi trường, khởi chạy hệ t
 ### 2.4. Cài đặt Visual Studio Code
 
 1. Tải **VS Code** từ trang chính thức.  
+   - Link: https://code.visualstudio.com/
 2. Cài đặt theo mặc định.  
 3. Mở VS Code, cài thêm các extension khuyến nghị:
    - **Extension Pack for Java**
@@ -73,6 +77,7 @@ Tài liệu này hướng dẫn cài đặt môi trường, khởi chạy hệ t
 ### 2.5. Cài đặt Git
 
 1. Truy cập trang tải **Git for Windows**.  
+   - Link: https://git-scm.com/install/windows
 2. Tải file cài đặt (dạng: `Git-*-64-bit.exe`).  
 3. Chạy file cài đặt:
    - Bấm **Next** liên tục theo cấu hình mặc định.
