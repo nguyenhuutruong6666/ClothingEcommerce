@@ -350,7 +350,7 @@ npm -v
 2. Đăng nhập với tài khoản quản trị (ví dụ – tuỳ bạn cấu hình sẵn trong DB):
 
    ```text
-   Email: admin@gmail.com
+   Email: nguyenhuutruong6666@gmail.com
    Mật khẩu: 123456
    ```
 
