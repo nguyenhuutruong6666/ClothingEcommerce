@@ -163,13 +163,10 @@ Mở file cấu hình trong backend:
 Thêm/cập nhật:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/clothingshop?useSSL=false&serverTimezone=UTC
-spring.datasource.username=root
-spring.datasource.password=
-
-spring.jpa.hibernate.ddl-auto=none
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+url: jdbc:mysql://localhost:3306/clothingshop?useSSL=false&serverTimezone=UTC
+driver-class-name: com.mysql.cj.jdbc.Driver
+username: root
+password: 
 ```
 
 > Nếu bạn đổi tên database hoặc mật khẩu MySQL, nhớ sửa lại cho khớp.
