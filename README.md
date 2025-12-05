@@ -30,7 +30,6 @@ Tài liệu này hướng dẫn cài đặt môi trường, khởi chạy hệ t
 
 1. Tải XAMPP từ trang chính thức (phiên bản mới nhất).  
    - Link: https://www.apachefriends.org/download.html
-<img width="940" height="474" alt="image" src="https://github.com/user-attachments/assets/7cdd21a8-b8a6-47ac-b0d5-d5eb0fca75c1" />
 2. Chạy file cài đặt, chọn các module:
    - Apache  
    - MySQL  
