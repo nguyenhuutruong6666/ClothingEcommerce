@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th12 05, 2025 lúc 04:51 PM
+-- Thời gian đã tạo: Th12 15, 2025 lúc 10:03 AM
 -- Phiên bản máy phục vụ: 10.4.11-MariaDB
 -- Phiên bản PHP: 7.4.4
 
@@ -43,7 +43,8 @@ CREATE TABLE `addresses` (
 --
 
 INSERT INTO `addresses` (`id`, `user_id`, `line`, `ward`, `district`, `province`, `country`, `is_default`) VALUES
-(1, 4, 'Ngự Câu', 'Phường Ngọc Hà', NULL, 'Thành phố Hà Nội', NULL, 1);
+(1, 4, 'Ngự Câu', 'Phường Ngọc Hà', NULL, 'Thành phố Hà Nội', NULL, 1),
+(2, 10, 'Ngự Câu', 'Phường Ba Đình', NULL, 'Thành phố Hà Nội', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,9 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `user_id`) VALUES
-(1, 4);
+(4, 4),
+(5, 5),
+(6, 10);
 
 -- --------------------------------------------------------
 
@@ -76,6 +79,13 @@ CREATE TABLE `cart_items` (
   `unit_price` decimal(12,2) NOT NULL,
   `quantity` int(11) NOT NULL CHECK (`quantity` > 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart_items`
+--
+
+INSERT INTO `cart_items` (`id`, `cart_id`, `variant_id`, `unit_price`, `quantity`) VALUES
+(3, 6, 10, '130000.00', 2);
 
 -- --------------------------------------------------------
 
@@ -120,7 +130,8 @@ INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `is_active`) VALUES
 (22, 4, 'Khăn & Vớ', 'khan-vo', 1),
 (23, 5, 'New Arrival', 'new-arrival', 1),
 (24, 5, 'Best Seller', 'best-seller', 1),
-(25, 5, 'Giảm giá', 'giam-gia', 1);
+(25, 5, 'Giảm giá', 'giam-gia', 1),
+(26, 1, 'test', 'test', 1);
 
 -- --------------------------------------------------------
 
@@ -168,7 +179,8 @@ CREATE TABLE `colors` (
 --
 
 INSERT INTO `colors` (`id`, `code`, `name`) VALUES
-(1, '#000000', 'test');
+(1, '#000000', 'test'),
+(2, '#3939C6', 'truong ech');
 
 -- --------------------------------------------------------
 
@@ -190,6 +202,13 @@ CREATE TABLE `coupons` (
   `image_url` varchar(500) DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `code`, `name`, `description`, `value`, `max_uses`, `max_uses_per_user`, `min_order_total`, `starts_at`, `ends_at`, `image_url`, `is_active`) VALUES
+(1, 'XL123', 'test', 'ưdqw', '30.00', 10, 4, '60000.00', '2025-12-14 06:47:00', '2025-12-30 06:47:00', 'https://res.cloudinary.com/dlihdrsag/image/upload/v1765787183/clothing_ecommerce/uploads/nxzfbhg85s5suwek7k7p.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -222,7 +241,13 @@ CREATE TABLE `inventories` (
 --
 
 INSERT INTO `inventories` (`id`, `variant_id`, `quantity`) VALUES
-(1, 1, 0);
+(8, 8, 14),
+(9, 9, 22),
+(10, 10, 16),
+(11, 11, 21),
+(12, 12, 100),
+(13, 13, 99),
+(14, 14, 0);
 
 -- --------------------------------------------------------
 
@@ -250,6 +275,13 @@ CREATE TABLE `orders` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Đang đổ dữ liệu cho bảng `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `code`, `status`, `total_items`, `subtotal`, `discount_total`, `shipping_fee`, `grand_total`, `payment_method`, `payment_status`, `shipping_address_snapshot`, `placed_at`, `paid_at`, `cancelled_at`, `created_at`, `updated_at`) VALUES
+(1, 5, 'ORD-E22D0A02', 'DELIVERED', 1, '100000.00', '0.00', '30000.00', '130000.00', 'COD', 'UNPAID', '{\"fullName\":\"Nguyen Huu Truong (Customer)\",\"phone\":\"0900000002\",\"address\":\"ngu cau\",\"ward\":\"Phường Tây Hồ\",\"province\":\"Thành phố Hà Nội\"}', '2025-12-15 08:23:56', '2025-12-15 08:24:03', NULL, '2025-12-15 08:23:14', '2025-12-15 08:24:03');
+
 -- --------------------------------------------------------
 
 --
@@ -267,6 +299,13 @@ CREATE TABLE `order_items` (
   `quantity` int(11) NOT NULL,
   `line_total` decimal(12,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `variant_id`, `product_name`, `sku`, `unit_price`, `quantity`, `line_total`) VALUES
+(1, 1, 3, 8, 'áo tex 1', 'tex1-#000000-XL', '100000.00', 1, '100000.00');
 
 -- --------------------------------------------------------
 
@@ -306,7 +345,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `sku`, `name`, `slug`, `description`, `base_price`, `category_id`, `is_published`) VALUES
-(1, '65356', 'Nguyễn Hữu Trường', 'nguyen-huu-truong', 'ttdhdth', '0.00', 6, 1);
+(3, 'tex1', 'áo tex 1', 'ao-tex-1', 'test', '100000.00', 6, 1),
+(4, 'tex2', 'Áo tex 2', 'ao-tex-2', 'fsdgwege', '130000.00', 10, 1),
+(5, '65356', 'test', 'test', 'bkbk', '159000.00', 6, 1),
+(6, 'tex1=3', 'áo tex 3', 'ao-tex-3', 'gfnfg', '50000.00', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -326,7 +368,12 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `image_url`, `position`) VALUES
-(1, 1, 'https://res.cloudinary.com/dlihdrsag/image/upload/v1764794932/clothing_ecommerce/uploads/hcckspyhsus3jgl9nvp9.jpg', 1);
+(3, 3, 'https://res.cloudinary.com/dlihdrsag/image/upload/v1765770125/clothing_ecommerce/uploads/xp0dmgnmhqug0vtqz0xh.png', 1),
+(4, 4, 'https://res.cloudinary.com/dlihdrsag/image/upload/v1765770200/clothing_ecommerce/uploads/herp80khqzeogsvicvtq.jpg', 1),
+(5, 4, 'https://res.cloudinary.com/dlihdrsag/image/upload/v1765770203/clothing_ecommerce/uploads/anmww15urqs3ujb2sled.jpg', 2),
+(6, 4, 'https://res.cloudinary.com/dlihdrsag/image/upload/v1765770206/clothing_ecommerce/uploads/mecy2eovudowctj58syi.png', 3),
+(7, 5, 'https://res.cloudinary.com/dlihdrsag/image/upload/v1765770360/clothing_ecommerce/uploads/d3thamxv9etfdpiizbkq.jpg', 1),
+(8, 6, 'https://res.cloudinary.com/dlihdrsag/image/upload/v1765785039/clothing_ecommerce/uploads/sdbnbqttpashcmprybrj.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -348,7 +395,13 @@ CREATE TABLE `product_variants` (
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `sku`, `size_id`, `color_id`, `price`) VALUES
-(1, 1, '65356-#000000-XL', 1, 1, '0.00');
+(8, 3, 'tex1-#000000-XL', 1, 1, '100000.00'),
+(9, 3, 'tex1-#000000-M', 2, 1, '100000.00'),
+(10, 4, 'tex2-#000000-XL', 1, 1, '130000.00'),
+(11, 4, 'tex2-#000000-M', 2, 1, '130000.00'),
+(12, 5, '65356-#000000-XL', 1, 1, '159000.00'),
+(13, 5, '65356-#000000-M', 2, 1, '159000.00'),
+(14, 6, 'tex1=3-#000000-XL', 1, 1, '50000.00');
 
 -- --------------------------------------------------------
 
@@ -367,6 +420,13 @@ CREATE TABLE `reviews` (
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Đang đổ dữ liệu cho bảng `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `product_id`, `user_id`, `order_id`, `rating`, `title`, `content`, `created_at`) VALUES
+(1, 3, 5, 1, 5, 'ng', 'cn', '2025-12-15 08:24:50');
+
 -- --------------------------------------------------------
 
 --
@@ -383,8 +443,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
-(1, 'ADMIN'),
-(2, 'CUSTOMER');
+(1, 'STAFF'),
+(2, 'CUSTOMER'),
+(3, 'ADMIN');
 
 -- --------------------------------------------------------
 
@@ -420,7 +481,8 @@ CREATE TABLE `sizes` (
 --
 
 INSERT INTO `sizes` (`id`, `code`, `name`, `sort_order`) VALUES
-(1, 'XL', 'test', 1);
+(1, 'XL', 'test', 1),
+(2, 'M', 'MMM', 2);
 
 -- --------------------------------------------------------
 
@@ -444,7 +506,10 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `password`, `full_name`, `phone`, `is_active`) VALUES
 (4, 'nguyenhuutruong6666@gmail.com', '$2b$10$OBlFB1aqRyft7s.hQZ31OOIXbS4L7WXeE4FN/y67Yt.e4mxwje9q6', 'Nguyen Huu Truong (Admin)', '0900000001', 1),
 (5, 'nguyenhuutruongchatgpt@gmail.com', '$2b$10$OBlFB1aqRyft7s.hQZ31OOIXbS4L7WXeE4FN/y67Yt.e4mxwje9q6', 'Nguyen Huu Truong (Customer)', '0900000002', 1),
-(6, 'stu725105179@hnue.edu.vn', '$2a$10$7CNuQ6ACT0w.5wjdLfRT3OhO8HaseJA9JjRwr.ArA5GeJi3LF8icC', 'Nguyễn Hữu Trường', '0385672224', 0);
+(10, 'texclostore@gmail.com', '$2a$10$Xme.NGuQKr6RdLiSsqGzhuHTMygL7qcuvtEeNKCPAkxGsl2wqMHBu', 'Nguyễn Hữu Trườnggsg', '0385672224', 1),
+(11, 'hoductuyenqp@gmail.com', '$2a$10$5Lf0TYopwt0NMSkHPSokW.APhXHMTxqrHeks.u3s311jjbOFNoEBm', 'tuyển', '0385672224', 1),
+(12, 'echteam04@gmail.com', '$2a$10$seNIGgvao/hk6p/ZBLZ2iuCnNBvdUZXFEcWhTW82x5LMXGKg08wSe', 'fewgew', '0386992202', 1),
+(13, 'nguyenhuutruongech5@gmail.com', '$2a$10$hy9SrIIyb9V6FQ85OZiT/eUdVqi4WgolSF2QYxO81vlO0DbRaL9Om', 'd d', '0386992202', 1);
 
 -- --------------------------------------------------------
 
@@ -462,9 +527,12 @@ CREATE TABLE `user_roles` (
 --
 
 INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
-(4, 1),
+(4, 3),
 (5, 2),
-(6, 2);
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -647,25 +715,25 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT cho bảng `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `chats`
@@ -683,13 +751,13 @@ ALTER TABLE `chat_messages`
 -- AUTO_INCREMENT cho bảng `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `coupon_redemptions`
@@ -701,19 +769,19 @@ ALTER TABLE `coupon_redemptions`
 -- AUTO_INCREMENT cho bảng `inventories`
 --
 ALTER TABLE `inventories`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `order_status_histories`
@@ -725,31 +793,31 @@ ALTER TABLE `order_status_histories`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `shipments`
@@ -761,13 +829,13 @@ ALTER TABLE `shipments`
 -- AUTO_INCREMENT cho bảng `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

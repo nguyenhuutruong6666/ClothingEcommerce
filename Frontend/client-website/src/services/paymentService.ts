@@ -1,4 +1,10 @@
 import privateClient from "@/lib/axios";
+
+export interface CreateVNPayPaymentRequest {
+  amount: number;
+  orderId: string;
+}
+
 export interface CreateVNPayPaymentResponse {
   paymentUrl: string;
 }

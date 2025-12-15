@@ -1,6 +1,6 @@
 "use client";
 
-import { SignupForm } from "@/app/user/signup/_components/signup-form";
+import { SignupForm } from "@/components/ui/signup-form";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/stores/useAuthStore";
 import { SignUpData } from "@/types";

@@ -1,6 +1,6 @@
 "use client";
 
-import { ResetPasswordForm } from "@/app/user/reset-password/_components/reset-password-form";
+import { ResetPasswordForm } from "@/components/ui/reset-password-form";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import useAuthStore from "@/stores/useAuthStore";
@@ -9,6 +9,7 @@ import { toast } from "sonner";
 export default function ResetPasswordPage() {
   const searchParams = useSearchParams();
   const { authUser } = useAuthStore();
+  const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
   const router = useRouter();
   const token = searchParams.get("token") || "";
 
@@ -20,7 +21,23 @@ export default function ResetPasswordPage() {
       return;
     }
   }, [authUser, router]);
-  if (token === null) {
+
+  useEffect(() => {
+    // Validate token format
+    if (token) {
+      // Basic token validation - you can add more sophisticated validation here
+      if (token.length < 10) {
+        setIsValidToken(false);
+        toast.error("Liên kết khôi phục mật khẩu không hợp lệ");
+      } else {
+        setIsValidToken(true);
+      }
+    } else {
+      setIsValidToken(false);
+    }
+  }, [token]);
+
+  if (isValidToken === null) {
     return (
       <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
         <div className="flex items-center justify-center">
@@ -30,7 +47,7 @@ export default function ResetPasswordPage() {
     );
   }
 
-  if (!token) {
+  if (!isValidToken) {
     return (
       <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
         <div className="flex w-full max-w-sm flex-col gap-6">

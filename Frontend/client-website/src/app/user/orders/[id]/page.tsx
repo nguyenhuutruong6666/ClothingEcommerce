@@ -2,23 +2,30 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { InvoiceTemplate } from "@/app/user/orders/_components/InvoiceTemplate";
+import { useOrderStore } from "@/stores/orderStore";
+import { InvoiceTemplate } from "@/components/common/InvoiceTemplate";
 import { CancelOrderDialog } from "@/components/common/CancelOrderDialog";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, XCircle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import UserLayout from "@/components/layouts/UserLayout";
+import UserLayout from "@/components/sections/UserLayout";
+import { OrderStatus } from "@/stores/orderStore";
 import { toast } from "sonner";
 import useAuthStore from "@/stores/useAuthStore";
-import {OrderStatus, useCancelOrder, useOrderById} from "@/services/orderService";
 export default function OrderDetailPage() {
   const params = useParams();
   const router = useRouter();
   const orderId = parseInt(params.id as string, 10);
   const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
   const { authUser } = useAuthStore();
- const {data: currentOrder, isLoading } = useOrderById(orderId);
- const {mutate:cancelOrder} = useCancelOrder();
+  const { currentOrder, isLoading, fetchOrderById, cancelOrder } =
+    useOrderStore();
+
+  useEffect(() => {
+    if (orderId && !isNaN(orderId)) {
+      fetchOrderById(orderId);
+    }
+  }, [orderId, fetchOrderById]);
   const handleGoBack = () => {
     router.replace("/user/orders");
   };
@@ -32,9 +39,9 @@ export default function OrderDetailPage() {
       return;
     }
     try {
-      // @ts-ignore
-        cancelOrder(authUser.id, orderId);
+      await cancelOrder(authUser.id, orderId);
       setIsCancelDialogOpen(false);
+      toast.success("Đơn hàng đã được hủy thành công!");
 
       // Show refund info if payment was made
       if (
