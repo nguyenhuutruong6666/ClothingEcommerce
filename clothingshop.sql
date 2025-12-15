@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th12 15, 2025 lúc 10:03 AM
+-- Thời gian đã tạo: Th12 15, 2025 lúc 10:36 AM
 -- Phiên bản máy phục vụ: 10.4.11-MariaDB
 -- Phiên bản PHP: 7.4.4
 
@@ -64,7 +64,8 @@ CREATE TABLE `carts` (
 INSERT INTO `carts` (`id`, `user_id`) VALUES
 (4, 4),
 (5, 5),
-(6, 10);
+(6, 10),
+(8, 14);
 
 -- --------------------------------------------------------
 
@@ -79,13 +80,6 @@ CREATE TABLE `cart_items` (
   `unit_price` decimal(12,2) NOT NULL,
   `quantity` int(11) NOT NULL CHECK (`quantity` > 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `cart_items`
---
-
-INSERT INTO `cart_items` (`id`, `cart_id`, `variant_id`, `unit_price`, `quantity`) VALUES
-(3, 6, 10, '130000.00', 2);
 
 -- --------------------------------------------------------
 
@@ -224,6 +218,13 @@ CREATE TABLE `coupon_redemptions` (
   `redeemed_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Đang đổ dữ liệu cho bảng `coupon_redemptions`
+--
+
+INSERT INTO `coupon_redemptions` (`id`, `coupon_id`, `user_id`, `order_id`, `redeemed_at`) VALUES
+(1, 1, 10, 2, '2025-12-15 09:21:50');
+
 -- --------------------------------------------------------
 
 --
@@ -246,7 +247,7 @@ INSERT INTO `inventories` (`id`, `variant_id`, `quantity`) VALUES
 (10, 10, 16),
 (11, 11, 21),
 (12, 12, 100),
-(13, 13, 99),
+(13, 13, 98),
 (14, 14, 0);
 
 -- --------------------------------------------------------
@@ -280,7 +281,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `code`, `status`, `total_items`, `subtotal`, `discount_total`, `shipping_fee`, `grand_total`, `payment_method`, `payment_status`, `shipping_address_snapshot`, `placed_at`, `paid_at`, `cancelled_at`, `created_at`, `updated_at`) VALUES
-(1, 5, 'ORD-E22D0A02', 'DELIVERED', 1, '100000.00', '0.00', '30000.00', '130000.00', 'COD', 'UNPAID', '{\"fullName\":\"Nguyen Huu Truong (Customer)\",\"phone\":\"0900000002\",\"address\":\"ngu cau\",\"ward\":\"Phường Tây Hồ\",\"province\":\"Thành phố Hà Nội\"}', '2025-12-15 08:23:56', '2025-12-15 08:24:03', NULL, '2025-12-15 08:23:14', '2025-12-15 08:24:03');
+(1, 5, 'ORD-E22D0A02', 'DELIVERED', 1, '100000.00', '0.00', '30000.00', '130000.00', 'COD', 'UNPAID', '{\"fullName\":\"Nguyen Huu Truong (Customer)\",\"phone\":\"0900000002\",\"address\":\"ngu cau\",\"ward\":\"Phường Tây Hồ\",\"province\":\"Thành phố Hà Nội\"}', '2025-12-15 08:23:56', '2025-12-15 08:24:03', NULL, '2025-12-15 08:23:14', '2025-12-15 08:24:03'),
+(2, 10, 'ORD-F596E320', 'DELIVERED', 1, '159000.00', '47700.00', '30000.00', '141300.00', 'COD', 'UNPAID', '{\"fullName\":\"Nguyễn Hữu Trườnggsg\",\"phone\":\"0385672224\",\"address\":\"Ngự Câu\",\"ward\":\"Phường Ba Đình\",\"province\":\"Thành phố Hà Nội\"}', '2025-12-15 09:22:29', '2025-12-15 09:22:34', NULL, '2025-12-15 09:21:50', '2025-12-15 09:22:34');
 
 -- --------------------------------------------------------
 
@@ -305,7 +307,8 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `variant_id`, `product_name`, `sku`, `unit_price`, `quantity`, `line_total`) VALUES
-(1, 1, 3, 8, 'áo tex 1', 'tex1-#000000-XL', '100000.00', 1, '100000.00');
+(1, 1, 3, 8, 'áo tex 1', 'tex1-#000000-XL', '100000.00', 1, '100000.00'),
+(2, 2, 5, 13, 'test', '65356-#000000-M', '159000.00', 1, '159000.00');
 
 -- --------------------------------------------------------
 
@@ -504,12 +507,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `full_name`, `phone`, `is_active`) VALUES
-(4, 'nguyenhuutruong6666@gmail.com', '$2b$10$OBlFB1aqRyft7s.hQZ31OOIXbS4L7WXeE4FN/y67Yt.e4mxwje9q6', 'Nguyen Huu Truong (Admin)', '0900000001', 1),
-(5, 'nguyenhuutruongchatgpt@gmail.com', '$2b$10$OBlFB1aqRyft7s.hQZ31OOIXbS4L7WXeE4FN/y67Yt.e4mxwje9q6', 'Nguyen Huu Truong (Customer)', '0900000002', 1),
-(10, 'texclostore@gmail.com', '$2a$10$Xme.NGuQKr6RdLiSsqGzhuHTMygL7qcuvtEeNKCPAkxGsl2wqMHBu', 'Nguyễn Hữu Trườnggsg', '0385672224', 1),
-(11, 'hoductuyenqp@gmail.com', '$2a$10$5Lf0TYopwt0NMSkHPSokW.APhXHMTxqrHeks.u3s311jjbOFNoEBm', 'tuyển', '0385672224', 1),
-(12, 'echteam04@gmail.com', '$2a$10$seNIGgvao/hk6p/ZBLZ2iuCnNBvdUZXFEcWhTW82x5LMXGKg08wSe', 'fewgew', '0386992202', 1),
-(13, 'nguyenhuutruongech5@gmail.com', '$2a$10$hy9SrIIyb9V6FQ85OZiT/eUdVqi4WgolSF2QYxO81vlO0DbRaL9Om', 'd d', '0386992202', 1);
+(4, 'nguyenhuutruong6666@gmail.com', '$2b$10$OBlFB1aqRyft7s.hQZ31OOIXbS4L7WXeE4FN/y67Yt.e4mxwje9q6', 'Nguyen Huu Truong (Admin) 1', '0900000001', 1),
+(5, 'nguyenhuutruongchatgpt@gmail.com', '$2b$10$OBlFB1aqRyft7s.hQZ31OOIXbS4L7WXeE4FN/y67Yt.e4mxwje9q6', 'Khách hàng 1', '0900000002', 1),
+(10, 'texclostore@gmail.com', '$2a$10$Xme.NGuQKr6RdLiSsqGzhuHTMygL7qcuvtEeNKCPAkxGsl2wqMHBu', 'Nhân viên 1', '0385672224', 1),
+(14, 'stu725105179@hnue.edu.vn', '$2a$10$uUuksERCqI11lLYdPgxEHu7lIHTQy45SZP4vtQpYOSOH2662IFmq2', 'Khách hàng 2', '0385672224', 1),
+(15, 'hoductuyenqp@gmail.com', '$2a$10$9GSsmUqCUwY3SHwQuR953eD1Sg.jOB38U6Kw27k0FjKdf6j/lavay', 'Nguyễn Hữu Trường', '0385672224', 1),
+(16, 'echteam04@gmail.com', '$2a$10$wLjl2Z0paBx2eUkiS8G76utS/ktsW3Zg7GJ1Chsow3t7CEd8pgWqi', 'NV kho', '0386992202', 1);
 
 -- --------------------------------------------------------
 
@@ -530,9 +533,9 @@ INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 (4, 3),
 (5, 2),
 (10, 1),
-(11, 1),
-(12, 1),
-(13, 1);
+(14, 2),
+(15, 2),
+(16, 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -721,13 +724,13 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT cho bảng `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -763,7 +766,7 @@ ALTER TABLE `coupons`
 -- AUTO_INCREMENT cho bảng `coupon_redemptions`
 --
 ALTER TABLE `coupon_redemptions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `inventories`
@@ -775,13 +778,13 @@ ALTER TABLE `inventories`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `order_status_histories`
@@ -835,7 +838,7 @@ ALTER TABLE `sizes`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
