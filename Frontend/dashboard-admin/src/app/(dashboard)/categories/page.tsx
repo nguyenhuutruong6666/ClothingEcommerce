@@ -135,12 +135,12 @@ export default function CategoriesPage() {
             Quản lý danh mục chính trong hệ thống
           </p>
         </div>
-        <Button asChild>
+        {/* <Button asChild>
           <Link href="/categories/add">
             <Plus className="mr-2 h-4 w-4" />
             Thêm danh mục chính
           </Link>
-        </Button>
+        </Button> */}
       </div>
 
       {/* Categories Table */}

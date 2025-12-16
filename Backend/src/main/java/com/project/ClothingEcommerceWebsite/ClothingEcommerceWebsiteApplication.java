@@ -11,6 +11,5 @@ public class ClothingEcommerceWebsiteApplication {
 		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
 		SpringApplication.run(ClothingEcommerceWebsiteApplication.class, args);
 	}
-
 }
 
