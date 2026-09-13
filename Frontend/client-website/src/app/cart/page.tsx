@@ -87,7 +87,7 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto p-4 max-w-7xl">
+      <div className="container mx-auto px-3 sm:px-4 py-4 max-w-7xl">
         {/* Breadcrumb */}
         <div className="mb-6">
           <Breadcrumb>

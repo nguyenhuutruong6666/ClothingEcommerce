@@ -26,6 +26,7 @@ import {
   Star,
 } from "lucide-react";
 import { toast } from "sonner";
+
 interface UserLayoutProps {
   children: ReactNode;
 }
@@ -57,6 +58,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
   const pathname = usePathname();
   const { authUser, logout } = useAuthStore();
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -67,6 +69,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
       toast.error("Đăng xuất thất bại");
     }
   };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
@@ -74,11 +77,11 @@ export default function UserLayout({ children }: UserLayoutProps) {
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center space-x-2 text-sm text-gray-600">
             <Link
-              href="/public"
+              href="/"
               className="hover:text-gray-900 flex items-center"
             >
               <Home className="h-4 w-4 mr-1" />
-              Trang chủ
+              <span className="hidden sm:inline">Trang chủ</span>
             </Link>
             <ChevronRight className="h-4 w-4" />
             <span className="text-gray-900">Tài khoản</span>
@@ -86,11 +89,73 @@ export default function UserLayout({ children }: UserLayoutProps) {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Sidebar */}
-          <div className="lg:col-span-3">
-            <div className="bg-white rounded-lg shadow-sm border p-6">
+      {/* Mobile Tab Navigation */}
+      <div className="lg:hidden bg-white border-b sticky top-0 z-40 shadow-sm">
+        <div className="container mx-auto px-2">
+          <div className="flex overflow-x-auto scrollbar-hide gap-1 py-2">
+            {sidebarItems.map((item) => {
+              const Icon = item.icon;
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/user" && pathname?.startsWith(item.href));
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 transition-colors",
+                    isActive
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-600 hover:bg-gray-100"
+                  )}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+
+            {/* Mobile Logout in tab bar */}
+            <AlertDialog
+              open={showLogoutDialog}
+              onOpenChange={setShowLogoutDialog}
+            >
+              <AlertDialogTrigger asChild>
+                <button
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0 text-red-600 hover:bg-red-50 transition-colors"
+                >
+                  <LogOut className="h-3.5 w-3.5" />
+                  <span>Đăng xuất</span>
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Xác nhận đăng xuất</AlertDialogTitle>
+                </AlertDialogHeader>
+                <AlertDialogDescription>
+                  Bạn có chắc chắn muốn đăng xuất khỏi tài khoản này?
+                </AlertDialogDescription>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Hủy</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleLogout}
+                    className="bg-red-600 hover:bg-red-700"
+                  >
+                    Đăng Xuất
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 lg:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
+          {/* Sidebar — Desktop only */}
+          <div className="hidden lg:block lg:col-span-3">
+            <div className="bg-white rounded-lg shadow-sm border p-6 sticky top-4">
               {/* User Info */}
               <div className="flex items-center space-x-3 mb-6 pb-6 border-b">
                 <div className="flex-1 min-w-0">

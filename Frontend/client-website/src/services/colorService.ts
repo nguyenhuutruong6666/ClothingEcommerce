@@ -1,4 +1,4 @@
-import { Color } from "@/types";
+import { Color } from "@/stores/colorStore";
 import privateClient from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 

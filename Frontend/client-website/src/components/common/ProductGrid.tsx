@@ -50,10 +50,10 @@ const ProductGrid: React.FC<ProductGridProps> = ({
     <div className="w-full">
       {/* Header */}
       {(title || subtitle) && (
-        <div className="flex items-center w-full gap-4 px-8 max-w-6xl mx-auto my-10">
+        <div className="flex items-center w-full gap-3 sm:gap-4 px-3 sm:px-6 md:px-8 max-w-6xl mx-auto my-6 md:my-10">
           <div className="h-[2px] bg-gradient-to-r from-[#111111] to-[#EEEEEE] flex-1" />
           {title && (
-            <h2 className="text-xl md:text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-base sm:text-xl md:text-3xl font-bold text-gray-900 mb-2 whitespace-nowrap">
               {title}
             </h2>
           )}
@@ -62,7 +62,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
       )}
 
       {/* Products Grid */}
-      <div className=" grid grid-cols-2 md:grid-cols-4  gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
         {products.map((product) => (
           <ProductItem
             key={product.id}

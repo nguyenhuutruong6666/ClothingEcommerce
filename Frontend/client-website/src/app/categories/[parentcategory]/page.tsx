@@ -235,18 +235,18 @@ export default function ParentCategoryPage() {
 
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <div className="mb-5 sm:mb-8">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">
             {categoryTitle}
           </h1>
-          <p className="text-gray-600">{filteredProducts.length} sản phẩm</p>
+          <p className="text-sm sm:text-base text-gray-600">{filteredProducts.length} sản phẩm</p>
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {/* Sidebar Filters */}
           <div
-            className={`w-64 space-y-6 ${
-              showFilters ? "block" : "hidden lg:block"
+            className={`w-full lg:w-64 flex-shrink-0 space-y-4 sm:space-y-6 ${
+              showFilters ? "block mb-4" : "hidden lg:block"
             }`}
           >
             <div className="bg-white p-6 rounded-lg shadow">
@@ -346,7 +346,7 @@ export default function ParentCategoryPage() {
           {/* Main Content */}
           <div className="flex-1">
             {/* Toolbar */}
-            <div className="bg-white p-4 rounded-lg shadow mb-6 flex justify-between items-center">
+            <div className="bg-white p-3 sm:p-4 rounded-lg shadow mb-4 sm:mb-6 flex flex-wrap justify-between items-center gap-3">
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => setShowFilters(!showFilters)}

@@ -1,15 +1,13 @@
 server:
-  port: 8088
+  port: ${SERVER_PORT:8088}
 spring:
   datasource:
-    # url: jdbc:mysql://root:WxxYnviAdTLJKHpsvBnPvMsxtIicyAGE@maglev.proxy.rlwy.net:12850/clothingshop
-    url: jdbc:mysql://localhost:3306/clothingshop?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:clothingshop}?useSSL=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    # password: WxxYnviAdTLJKHpsvBnPvMsxtIicyAGE
-    password: 
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:}
   jpa:
-    show-sql: no
+    show-sql: false
     hibernate:
       ddl-auto: none
     properties:
@@ -21,10 +19,10 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: oganiboss11@gmail.com
-    password: ydgndwjksuihurub
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:oganiboss11@gmail.com}
+    password: ${MAIL_PASSWORD:ydgndwjksuihurub}
     properties:
       mail:
         smtp:
@@ -32,23 +30,22 @@ spring:
           starttls:
             enable: true
   sendgrid:
-    api-key: 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
-    from-email: hoductuyenqp@gmail.com
+    api-key: ${SENDGRID_API_KEY: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}
+    from-email: ${SENDGRID_FROM_EMAIL:hoductuyenqp@gmail.com}
   cloudinary:
-    api-key: 794879747219491
-    api-secret: FWuxg7Zf3kg9uwonLtBQ5AbeYqY
+    api-key: ${CLOUDINARY_API_KEY:794879747219491}
+    api-secret: ${CLOUDINARY_API_SECRET:FWuxg7Zf3kg9uwonLtBQ5AbeYqY}
   vnpay:
-    tmn-code: M5O0LLB4
-    secret-key: 5AG7WNH6INYKSRY4PB3XHI2BIWM2FSSV
-    pay-url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
-    return-url: http://localhost:8088/api/v1/payment/vn-pay-callback
-    # return-url: http://clothingecommercewebsite.onrender.com/api/v1/payment/vn-pay-callback
+    tmn-code: ${VNPAY_TMN_CODE:M5O0LLB4}
+    secret-key: ${VNPAY_SECRET_KEY:5AG7WNH6INYKSRY4PB3XHI2BIWM2FSSV}
+    pay-url: ${VNPAY_PAY_URL:https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
+    return-url: ${VNPAY_RETURN_URL:http://localhost:8088/api/v1/payment/vn-pay-callback}
     version: 2.1.0
     command: pay
     order-type: other
 api:
   prefix: api/v1
 jwt:
-  accesstoken-expiration: 3600
-  refreshtoken-expiration: 86400
-  secretKey: TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=
+  accesstoken-expiration: ${JWT_ACCESS_EXPIRATION:3600}
+  refreshtoken-expiration: ${JWT_REFRESH_EXPIRATION:86400}
+  secretKey: ${JWT_SECRET_KEY:TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=}

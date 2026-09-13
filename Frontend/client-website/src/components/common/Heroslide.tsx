@@ -32,15 +32,16 @@ export default function Heroslide() {
     const displayBanners = couponBanners.length > 0 ? couponBanners : banner;
 
     return (
-    <AutoSwiper className="px-8 py-2 rounded-md">
+    <AutoSwiper className="px-2 sm:px-4 md:px-8 py-2 rounded-md">
       {displayBanners.map((item) => (
         <SwiperSlide key={item.id}>
-          <div className="relative w-full h-[250px] md:h-[700px] sm:h-[350px]">
+          <div className="relative w-full h-[180px] xxs:h-[220px] xs:h-[280px] sm:h-[360px] md:h-[480px] lg:h-[580px] xl:h-[680px]">
             <Image
               src={item.image}
               alt={item.title}
               fill
               className="w-full h-full object-cover"
+              priority
             />
           </div>
         </SwiperSlide>

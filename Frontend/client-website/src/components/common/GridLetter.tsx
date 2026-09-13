@@ -23,12 +23,12 @@ export default function GridLetter() {
   // Sử dụng coupon banners nếu có, không thì dùng banner mặc định
 
   return (
-    <div className="w-full px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-auto">
+    <div className="w-full px-3 sm:px-4 py-6 sm:py-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mx-auto">
         {couponBanners.slice(0, 2).map((item, index) => (
           <div
             key={item.id || index}
-            className={`h-[400px] lg:h-[500px] rounded-2xl overflow-hidden relative group cursor-pointer ${
+            className={`h-[180px] xxs:h-[220px] xs:h-[260px] sm:h-[320px] md:h-[380px] lg:h-[500px] rounded-xl sm:rounded-2xl overflow-hidden relative group cursor-pointer ${
               index === 0
                 ? "bg-gradient-to-r from-slate-200 to-slate-100"
                 : "bg-gradient-to-r from-green-200 to-green-100"
@@ -46,16 +46,16 @@ export default function GridLetter() {
             </div>
 
             {/* Content */}
-            <div className="relative h-full flex flex-col justify-between p-8 z-10">
+            <div className="relative h-full flex flex-col justify-between p-3 xxs:p-4 sm:p-6 md:p-8 z-10">
               <div>
-                <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4 tracking-wide">
+                <h2 className="text-lg xxs:text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-1 sm:mb-4 tracking-wide">
                   {item.title}
                 </h2>
-                <p className="text-white/90 text-sm lg:text-base font-medium">
+                <p className="text-white/90 text-xs sm:text-sm lg:text-base font-medium line-clamp-2">
                   Nhập {item.code} Giảm {item.value}%
                 </p>
               </div>
-              <button className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 w-fit uppercase tracking-wide">
+              <button className="bg-white text-black px-4 xxs:px-5 sm:px-8 py-1.5 xxs:py-2 sm:py-3 rounded-full text-xs sm:text-base font-semibold hover:bg-gray-100 transition-all duration-300 w-fit uppercase tracking-wide">
                 KHÁM PHÁ
               </button>
             </div>

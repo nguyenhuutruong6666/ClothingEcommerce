@@ -1,4 +1,4 @@
-import { Size } from "@/types";
+import { Size } from "@/stores/sizeStore";
 import privateClient from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 export const sizeService = {

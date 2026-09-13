@@ -88,7 +88,7 @@ export function CartSheet() {
         </Button>
       </SheetTrigger>
 
-      <SheetContent className="md:w-[400px]">
+      <SheetContent className="w-[90vw] sm:max-w-[400px] p-4 sm:p-6">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2 p-4">
             <ShoppingCart className="w-5 h-5" />

@@ -65,10 +65,10 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
     <div className="w-full">
       {/* Header */}
       {title && (
-        <div className="flex items-center w-full gap-4 px-4 md:px-8 max-w-6xl mx-auto my-12">
+        <div className="flex items-center w-full gap-3 sm:gap-4 px-3 sm:px-6 md:px-8 max-w-6xl mx-auto my-6 md:my-12">
           <div className="h-[2px] bg-gradient-to-r from-[#111111] to-[#EEEEEE] flex-1" />
           {title && (
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 whitespace-nowrap">
+            <h2 className="text-base sm:text-2xl md:text-3xl font-bold text-gray-900 whitespace-nowrap">
               {title}
             </h2>
           )}
@@ -77,7 +77,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
       )}
 
       {/* Carousel */}
-      <div className="relative px-4 md:px-12">
+      <div className="relative px-3 sm:px-6 md:px-12">
         <Carousel
           opts={{
             align: "start",
@@ -89,7 +89,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
             {products.map((product, index) => (
               <CarouselItem
                 key={product.id}
-                className="pl-2 md:pl-4  md:basis-1/4 basis-1/2"
+              className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4"
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >

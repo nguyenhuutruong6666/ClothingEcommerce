@@ -122,18 +122,18 @@ const ProductItem: React.FC<ProductItemProps> = ({
       </div>
 
       {/* Product Info */}
-      <div className="p-4 text-center">
+      <div className="p-2 sm:p-3 md:p-4 text-center">
         {/* Title */}
         <h3
-          className={`font-semibold mb-1 line-clamp-2 ${
+          className={`text-xs sm:text-sm font-semibold mb-1 line-clamp-2 ${
             isOutOfStock ? "text-gray-400" : "text-gray-900"
           }`}
         >
           {name}
         </h3>
         {/* Price */}
-        <div className="mb-2">
-          <span className="text-lg font-bold text-gray-900">
+        <div className="mb-1 sm:mb-2">
+          <span className="text-sm sm:text-lg font-bold text-gray-900">
             {formatPrice(basePrice)}
           </span>
         </div>

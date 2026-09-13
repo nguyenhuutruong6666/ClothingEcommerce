@@ -519,7 +519,7 @@ export default function ProductDetailPage() {
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <TabsList className="flex items-start w-full grid-cols-2 mx-auto">
+            <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
               <TabsTrigger value="description" className="text-sm sm:text-base">
                 Mô tả sản phẩm
               </TabsTrigger>

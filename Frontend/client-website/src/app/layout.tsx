@@ -35,7 +35,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <div className="min-h-screen flex flex-col">
             <Header />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 overflow-x-hidden w-full">{children}</main>
             <Footer />
           </div>
           <ScrollToTopAndContactButton />

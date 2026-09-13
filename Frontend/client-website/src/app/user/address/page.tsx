@@ -251,16 +251,16 @@ export default function AddressManagementPage() {
     <UserLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
               Quản lý địa chỉ
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-xs sm:text-sm text-gray-600 mt-0.5">
               Quản lý địa chỉ giao hàng của bạn
             </p>
           </div>
-          <Button onClick={handleOpenAddDialog}>
+          <Button onClick={handleOpenAddDialog} className="w-full sm:w-auto">
             <Plus className="h-4 w-4 mr-2" />
             Thêm địa chỉ mới
           </Button>
@@ -361,7 +361,7 @@ export default function AddressManagementPage() {
 
         {/* Add/Edit Dialog */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl w-[92vw] sm:w-full max-h-[90vh] overflow-y-auto p-4 sm:p-6">
             <DialogHeader>
               <DialogTitle>
                 {editingAddress ? "Chỉnh sửa địa chỉ" : "Thêm địa chỉ mới"}

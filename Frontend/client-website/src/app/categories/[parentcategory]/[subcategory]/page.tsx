@@ -221,11 +221,11 @@ export default function SubCategoryPage() {
           </h1>
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {/* Sidebar Filters */}
           <div
-            className={`w-64 space-y-6 ${
-              showFilters ? "block" : "hidden lg:block"
+            className={`w-full lg:w-64 flex-shrink-0 space-y-4 sm:space-y-6 ${
+              showFilters ? "block mb-4" : "hidden lg:block"
             }`}
           >
             <div className="bg-white p-6 rounded-lg shadow">

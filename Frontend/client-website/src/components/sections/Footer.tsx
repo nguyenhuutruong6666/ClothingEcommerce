@@ -12,15 +12,15 @@ export default function Footer() {
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="lucide lucide-instagram-icon lucide-instagram"
+          className="lucide lucide-instagram"
         >
           <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
@@ -34,15 +34,15 @@ export default function Footer() {
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="lucide lucide-facebook-icon lucide-facebook"
+          className="lucide lucide-facebook"
         >
           <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
         </svg>
@@ -54,8 +54,8 @@ export default function Footer() {
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -75,8 +75,8 @@ export default function Footer() {
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -92,14 +92,14 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-black w-full mx-auto p-6 md:p-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-black w-full mx-auto p-5 sm:p-8 md:p-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Cột 1: Thông tin công ty */}
-        <div className="text-white">
+        <div className="text-white sm:col-span-2 lg:col-span-1">
           <div className="flex items-center space-x-2 mb-4">
             <div>
-              <h2 className="font-bold text-3xl uppercase p-2">Aristino</h2>
-              <p className="text-sm text-gray-300">
+              <h2 className="font-bold text-2xl md:text-3xl uppercase p-2">Aristino</h2>
+              <p className="text-sm text-gray-300 leading-relaxed">
                 Fashion Shop - một brand thời trang nam tại Hà Nội, được thành
                 lập vào năm 2024. Sau hơn chục năm phát triển, Fashion Shop hiện
                 đang hoạt động với 2 cở sở chính tại Hà Nội và các nền tảng mạng
@@ -128,7 +128,7 @@ export default function Footer() {
 
         {/* Cột 2: Thông tin liên hệ */}
         <div className="text-white">
-          <h3 className="font-bold text-lg uppercase mb-4">
+          <h3 className="font-bold text-base md:text-lg uppercase mb-4">
             Thông tin liên hệ
           </h3>
           <div className="flex flex-col space-y-2">
@@ -144,7 +144,7 @@ export default function Footer() {
 
         {/* Cột 3: Chính sách bán hàng */}
         <div className="text-white">
-          <h3 className="font-bold text-lg uppercase mb-4">
+          <h3 className="font-bold text-base md:text-lg uppercase mb-4">
             CHÍNH SÁCH BÁN HÀNG
           </h3>
           <div className="flex flex-col space-y-2">
@@ -160,18 +160,20 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Cột 4: Theo dõi chúng tôi & Thanh toán */}
+        {/* Cột 4: Theo dõi chúng tôi */}
         <div className="text-white">
           <div className="flex flex-col space-y-2">
-            <h3 className="font-bold text-lg uppercase mb-4">
+            <h3 className="font-bold text-base md:text-lg uppercase mb-4">
               THEO DÕI CHÚNG TÔI
             </h3>
-            <div className="flex  mb-6 gap-4">
+            <div className="flex mb-6 gap-3 flex-wrap">
               {socialLinks.map((socialLink, index) => (
                 <a
                   key={index}
                   href={socialLink.href}
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={socialLink.name}
                   className="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors group"
                 >
                   <div className="p-2 bg-gray-800 rounded-full group-hover:bg-gray-700 transition-colors">
@@ -180,21 +182,24 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-            <iframe
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61582315304972&tabs&width=340&height=130&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true&appId"
-              width="340"
-              height="130"
-              style={{ border: "none", overflow: "hidden" }}
-              allowFullScreen={true}
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            />
+            {/* Facebook iframe — responsive */}
+            <div className="w-full overflow-hidden rounded-md">
+              <iframe
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61582315304972&tabs&width=340&height=130&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true&appId"
+                width="100%"
+                height="130"
+                style={{ border: "none", overflow: "hidden", maxWidth: "340px" }}
+                allowFullScreen={true}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Copyright */}
       <div className="border-t border-gray-700 mt-8 pt-4 text-center">
-        <p className="text-sm text-gray-400">
+        <p className="text-xs sm:text-sm text-gray-400">
           © 2025 CÔNG TY CỔ PHẦN THỜI TRANG VIỆT NAM. Tất cả quyền được bảo lưu.
         </p>
       </div>

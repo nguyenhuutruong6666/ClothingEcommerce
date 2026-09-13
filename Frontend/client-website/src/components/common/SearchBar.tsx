@@ -93,7 +93,7 @@ export default function SearchBar({ className, isMobile = false, onClose }: Sear
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className={`${
-            isMobile ? "w-full" : "w-80"
+            isMobile ? "w-full" : "w-64 lg:w-80"
           } pl-10 pr-10 py-2 border border-gray-500 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-transparent text-sm`}
         />
         {searchQuery && (
@@ -108,7 +108,7 @@ export default function SearchBar({ className, isMobile = false, onClose }: Sear
 
       {/* Search Results Dropdown */}
       {showResults && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-[500px] overflow-y-auto z-50">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-[60vh] sm:max-h-[500px] overflow-y-auto z-50 min-w-[280px]">
           {isLoading ? (
             <div className="p-4 text-center text-gray-500">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
