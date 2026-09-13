@@ -73,13 +73,13 @@ export function InvoiceTemplate({ order }: InvoiceTemplateProps) {
         </div>
         <div className="text-right">
           <div className="flex items-center gap-2 mb-4">
-            <h2 className="text-xl font-bold text-gray-900">Aristino</h2>
+            <h2 className="text-xl font-bold text-gray-900">TEXCLO</h2>
           </div>
           <div className="text-sm text-gray-600 space-y-1">
             <p>123 Đường ABC, Quận XYZ, Thành phố ABC, Việt Nam</p>
             <p>+84 909 090 909</p>
-            <p>info@aristino.com</p>
-            <p>https://aristino.com</p>
+            <p>info@texclo.com</p>
+            <p>https://texclo.com</p>
           </div>
         </div>
       </div>

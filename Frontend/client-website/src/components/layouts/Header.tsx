@@ -78,8 +78,8 @@ export default function Header() {
                 <span>HOTLINE: 1900 1234</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Mail className="w-4 h-4" />
-                <span>support@fashionstore.com</span>
+                <Mail className="w-3 h-3 lg:w-4 lg:h-4" />
+                <span className="hidden lg:inline">support@texclo.com</span>
               </div>
             </div>
             <div className="flex items-center space-x-6">
@@ -231,10 +231,10 @@ export default function Header() {
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden py-4 border-t">
+            <div className="md:hidden py-4 px-2 border-t border-stone-200 bg-white space-y-1">
               <Link
-                href="/public"
-                className="block py-2 text-gray-700 hover:text-blue-600"
+                href="/"
+                className="block py-2.5 px-3 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 rounded-lg transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Trang chủ
@@ -255,7 +255,7 @@ export default function Header() {
                     <Link
                       key={parent.id}
                       href={`/categories/${parent.slug}`}
-                      className="block py-2 text-gray-700 hover:text-blue-600"
+                      className="block py-2.5 px-3 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 rounded-lg transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {parent.name}
@@ -264,16 +264,20 @@ export default function Header() {
                 }
 
                 return (
-                  <div key={parent.id} className="py-2">
-                    <div className="font-semibold text-gray-900 mb-2">
+                  <div key={parent.id} className="py-1">
+                    <Link
+                      href={`/categories/${parent.slug}`}
+                      className="block py-2 px-3 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 rounded-lg transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       {parent.name}
-                    </div>
-                    <div className="pl-4 space-y-1">
+                    </Link>
+                    <div className="pl-6 space-y-1 mt-1 border-l-2 border-stone-200 ml-3">
                       {children.map((child) => (
                         <Link
                           key={child.id}
                           href={`/categories/${parent.slug}/${child.slug}`}
-                          className="block py-1 text-sm text-gray-600 hover:text-blue-600"
+                          className="block py-1.5 px-3 text-xs font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           {child.name}
@@ -283,6 +287,14 @@ export default function Header() {
                   </div>
                 );
               })}
+
+              <Link
+                href="/news"
+                className="block py-2.5 px-3 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 rounded-lg transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Tin tức
+              </Link>
             </div>
           )}
 

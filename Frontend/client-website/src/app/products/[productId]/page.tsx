@@ -608,6 +608,30 @@ export default function ProductDetailPage() {
           </Tabs>
         </div>
       </div>
+
+      {/* Sticky Mobile Bottom Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/80 p-3 sm:hidden shadow-lg flex items-center justify-between gap-2">
+        <div className="min-w-0 flex-1">
+          <p className="text-[10px] text-stone-500 uppercase tracking-wider font-medium truncate">{product.name}</p>
+          <p className="text-sm font-extrabold text-stone-900">{formatPrice(product.basePrice)}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={handleAddToCart}
+            disabled={!selectedSize || !selectedColor || !!isOutOfStock}
+            className="bg-stone-900 text-white px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-black disabled:opacity-50"
+          >
+            + Giỏ
+          </Button>
+          <Button
+            onClick={handleBuyNow}
+            disabled={!selectedSize || !selectedColor || !!isOutOfStock}
+            className="bg-red-600 text-white px-3 py-2 hover:bg-red-700 text-xs font-bold uppercase tracking-wider rounded-xl disabled:opacity-50"
+          >
+            Mua
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

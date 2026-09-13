@@ -9,8 +9,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: {
-    template: "%s - Atino Admin Dashboard",
-    default: "Atino Admin Dashboard",
+    template: "%s - TEXCLO Admin Dashboard",
+    default: "TEXCLO Admin Dashboard",
+  },
+  icons: {
+    icon: "/images/logo_new.png",
+    shortcut: "/images/logo_new.png",
+    apple: "/images/logo_new.png",
   },
 };
 

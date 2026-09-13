@@ -17,8 +17,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fashion Ecommerce",
-  description: "Fashion Ecommerce",
+  title: "TEXCLO - Thời Trang Nam Cao Cấp",
+  description: "TEXCLO - Thương hiệu thời trang nam cao cấp, phong cách và hiện đại.",
+  icons: {
+    icon: "/images/logo/logo_new.png",
+    shortcut: "/images/logo/logo_new.png",
+    apple: "/images/logo/logo_new.png",
+  },
 };
 
 export default function RootLayout({

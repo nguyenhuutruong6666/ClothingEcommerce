@@ -222,26 +222,46 @@ export default function SubCategoryPage() {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+          {/* Mobile Overlay Backdrop */}
+          {showFilters && (
+            <div
+              className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 lg:hidden"
+              onClick={() => setShowFilters(false)}
+            />
+          )}
+
           {/* Sidebar Filters */}
           <div
             className={`w-full lg:w-64 flex-shrink-0 space-y-4 sm:space-y-6 ${
-              showFilters ? "block mb-4" : "hidden lg:block"
+              showFilters
+                ? "fixed inset-y-0 left-0 z-50 w-[300px] bg-white p-6 overflow-y-auto shadow-2xl transition-transform duration-300 transform translate-x-0 lg:static lg:w-64 lg:p-0 lg:shadow-none lg:bg-transparent lg:overflow-visible"
+                : "hidden lg:block"
             }`}
           >
-            <div className="bg-white p-6 rounded-lg shadow">
+            <div className="bg-white p-5 sm:p-6 rounded-2xl border border-stone-200/80 shadow-xs">
+              <div className="flex items-center justify-between lg:hidden mb-4 pb-3 border-b">
+                <h3 className="font-bold text-stone-900 uppercase text-sm">Bộ Lọc Sản Phẩm</h3>
+                <button
+                  onClick={() => setShowFilters(false)}
+                  className="p-1 text-stone-500 hover:text-stone-900"
+                >
+                  ✕
+                </button>
+              </div>
+
               {/* Price Range */}
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Khoảng giá</h3>
-                <div className="space-y-2">
+                <h3 className="font-semibold text-stone-900 text-sm uppercase tracking-wider mb-3">Khoảng giá</h3>
+                <div className="space-y-1.5">
                   {priceRanges.map((range, index) => (
                     <button
                       key={index}
                       onClick={() => handlePriceRangeFilter(range.value)}
-                      className={`w-full text-left px-3 py-2 rounded-md text-sm ${
+                      className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
                         filters.priceRange[0] === range.value[0] &&
                         filters.priceRange[1] === range.value[1]
-                          ? "bg-blue-100 text-blue-800"
-                          : "hover:bg-gray-100"
+                          ? "bg-black text-white"
+                          : "bg-stone-50 text-stone-700 hover:bg-stone-100"
                       }`}
                     >
                       {range.label}
@@ -252,16 +272,16 @@ export default function SubCategoryPage() {
 
               {/* Colors */}
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Màu sắc</h3>
+                <h3 className="font-semibold text-stone-900 text-sm uppercase tracking-wider mb-3">Màu sắc</h3>
                 <div className="grid grid-cols-6 gap-2">
                   {availableColors.map((color) => (
                     <button
                       key={color.id}
                       onClick={() => handleColorFilter(color.id)}
-                      className={`w-8 h-8 rounded-full border ${
+                      className={`w-7 h-7 rounded-full border-2 transition-all ${
                         filters.colorIds.includes(color.id)
-                          ? "border-blue-500"
-                          : "border-gray-300"
+                          ? "border-black scale-110 shadow-xs"
+                          : "border-stone-200 hover:border-stone-400"
                       }`}
                       style={{ backgroundColor: color.code }}
                       title={color.name}
@@ -272,16 +292,16 @@ export default function SubCategoryPage() {
 
               {/* Sizes */}
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Kích cỡ</h3>
+                <h3 className="font-semibold text-stone-900 text-sm uppercase tracking-wider mb-3">Kích cỡ</h3>
                 <div className="grid grid-cols-3 gap-2">
                   {availableSizes.map((size) => (
                     <button
                       key={size.id}
                       onClick={() => handleSizeFilter(size.id)}
-                      className={`px-4 py-2 border rounded-sm text-sm font-medium transition-colors ${
+                      className={`py-2 px-3 border rounded-xl text-xs font-semibold transition-colors ${
                         filters.sizeIds.includes(size.id)
-                          ? "bg-gray-900 text-white border-gray-900"
-                          : "bg-white text-gray-700 border-gray-500 hover:bg-gray-100"
+                          ? "border-black bg-black text-white"
+                          : "border-stone-200 hover:border-stone-400 bg-white text-stone-700"
                       }`}
                     >
                       {size.code}
@@ -293,7 +313,7 @@ export default function SubCategoryPage() {
               {/* Clear Filters */}
               <button
                 onClick={clearFilters}
-                className="w-full bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors"
+                className="w-full bg-stone-100 hover:bg-stone-200 text-stone-900 text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-xl transition-colors"
               >
                 Xóa bộ lọc
               </button>
@@ -303,27 +323,18 @@ export default function SubCategoryPage() {
           {/* Main Content */}
           <div className="flex-1">
             {/* Toolbar */}
-            <div className="bg-white p-4 rounded-lg shadow mb-6 flex justify-between items-center">
-              <div className="flex items-center space-x-4">
+            <div className="bg-white p-3 sm:p-4 rounded-2xl border border-stone-200/80 shadow-xs mb-4 sm:mb-6 flex flex-wrap justify-between items-center gap-3">
+              <div className="flex items-center space-x-3">
                 <button
-                  onClick={() => setShowFilters(!showFilters)}
-                  className="lg:hidden bg-gray-100 p-2 rounded-md"
+                  onClick={() => setShowFilters(true)}
+                  className="lg:hidden bg-stone-900 text-white px-3 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 shadow-xs"
                 >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-                    />
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                   </svg>
+                  <span>Bộ lọc</span>
                 </button>
-                <span className="text-gray-600">
+                <span className="text-xs sm:text-sm text-stone-600 font-medium">
                   Hiển thị {Math.min(displayCount, filteredProducts.length)} /{" "}
                   {filteredProducts.length} sản phẩm
                 </span>

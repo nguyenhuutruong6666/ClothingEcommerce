@@ -102,7 +102,7 @@ export default function DashboardPage() {
       <div>
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="text-muted-foreground">
-          Chào mừng bạn đến với Dashboard Admin của Aristino.
+          Chào mừng bạn đến với Dashboard Admin của TEXCLO.
         </p>
       </div>
 

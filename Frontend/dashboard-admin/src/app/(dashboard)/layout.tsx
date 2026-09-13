@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import useAuthStore from "@/stores/useAuthStore";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -210,18 +211,23 @@ function Sidebar({
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/images/logo_new.png"
+              alt="TEXCLO Logo"
+              width={32}
+              height={32}
+              className="h-8 w-8 object-contain"
+              unoptimized
+            />
             <h2
               className={cn(
                 "text-lg font-semibold text-white",
                 collapsed && "hidden"
               )}
             >
-              Atino Admin Dashboard
+              TEXCLO Admin
             </h2>
-            {collapsed && (
-              <span className="text-lg font-semibold text-white">Atino</span>
-            )}
           </div>
         </div>
         <div className="px-3">

@@ -106,7 +106,7 @@ export default function Header() {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="w-3 h-3 lg:w-4 lg:h-4" />
-                <span className="hidden lg:inline">support@fashionstore.com</span>
+                <span className="hidden lg:inline">support@texclo.com</span>
               </div>
             </div>
             <div className="flex items-center space-x-4 lg:space-x-6">

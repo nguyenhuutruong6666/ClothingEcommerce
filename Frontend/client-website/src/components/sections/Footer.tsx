@@ -98,12 +98,9 @@ export default function Footer() {
         <div className="text-white sm:col-span-2 lg:col-span-1">
           <div className="flex items-center space-x-2 mb-4">
             <div>
-              <h2 className="font-bold text-2xl md:text-3xl uppercase p-2">Aristino</h2>
+              <h2 className="font-bold text-2xl md:text-3xl uppercase p-2">TEXCLO</h2>
               <p className="text-sm text-gray-300 leading-relaxed">
-                Fashion Shop - một brand thời trang nam tại Hà Nội, được thành
-                lập vào năm 2024. Sau hơn chục năm phát triển, Fashion Shop hiện
-                đang hoạt động với 2 cở sở chính tại Hà Nội và các nền tảng mạng
-                xã hội.
+                TEXCLO - Thương hiệu thời trang nam phong cách và hiện đại, mang đến sự tự tin và khác biệt trong từng thiết kế.
               </p>
             </div>
           </div>
@@ -200,7 +197,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="border-t border-gray-700 mt-8 pt-4 text-center">
         <p className="text-xs sm:text-sm text-gray-400">
-          © 2025 CÔNG TY CỔ PHẦN THỜI TRANG VIỆT NAM. Tất cả quyền được bảo lưu.
+          © 2025 TEXCLO. Tất cả quyền được bảo lưu.
         </p>
       </div>
     </footer>
