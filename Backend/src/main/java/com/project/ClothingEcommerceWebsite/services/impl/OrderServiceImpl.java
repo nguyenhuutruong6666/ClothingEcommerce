@@ -60,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
         }
         double grandTotal = subtotal * (1 - discountTotal / 100) + shippingFee;
         Enums.PaymentStatus paymentStatus;
-        if(request.getPaymentMethod().equals("COD")) {
+        if (request.getPaymentMethod() == Enums.PaymentMethod.COD) {
             paymentStatus = Enums.PaymentStatus.PAID;
         } else {
             paymentStatus = Enums.PaymentStatus.UNPAID;
@@ -192,7 +192,7 @@ public class OrderServiceImpl implements OrderService {
             case SHIPPED, DELIVERED -> order.setPaidAt(LocalDateTime.now());
             case CANCELLED -> {
                 order.setCancelledAt(LocalDateTime.now());
-                if(order.getPaymentMethod().equals(Enums.PaymentMethod.WALLET)) {
+                if (order.getPaymentMethod() == Enums.PaymentMethod.WALLET) {
                     order.setPaymentStatus(Enums.PaymentStatus.REFUNDED);
                 }
                 List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
@@ -205,6 +205,7 @@ public class OrderServiceImpl implements OrderService {
                 }
                 redemptionRepository.findByOrderId(orderId).ifPresent(redemptionRepository::delete);
             }
+            default -> {}
         }
         return orderRepository.save(order);
     }

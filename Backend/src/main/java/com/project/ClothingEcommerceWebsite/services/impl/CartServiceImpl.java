@@ -1,6 +1,5 @@
 package com.project.ClothingEcommerceWebsite.services.impl;
 
-import com.project.ClothingEcommerceWebsite.dtos.respond.CartResponse;
 import com.project.ClothingEcommerceWebsite.models.*;
 import com.project.ClothingEcommerceWebsite.repositories.*;
 import com.project.ClothingEcommerceWebsite.services.CartService;
@@ -8,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service

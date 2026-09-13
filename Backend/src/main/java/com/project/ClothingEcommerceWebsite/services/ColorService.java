@@ -2,8 +2,6 @@ package com.project.ClothingEcommerceWebsite.services;
 
 import com.project.ClothingEcommerceWebsite.dtos.request.CreateColorRequest;
 import com.project.ClothingEcommerceWebsite.models.Color;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 

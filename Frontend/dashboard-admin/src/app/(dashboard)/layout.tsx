@@ -10,8 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import useAuthStore from "@/stores/useAuthStore";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -127,14 +126,20 @@ function Sidebar({
 }: Omit<SidebarProps, "onCollapse">) {
   const { isAdmin } = useAuthStore();
   const [openItems, setOpenItems] = useState<string[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const filteredSidebarItems = sidebarItems.filter((item) => {
     if (!item.requireRole) {
       return true;
     }
     if (item.requireRole === "ADMIN") {
-      return isAdmin();
+      return mounted ? isAdmin() : false;
     }
+    return true;
   });
   const toggleItem = (title: string) => {
     setOpenItems((prev) =>
@@ -182,20 +187,22 @@ function Sidebar({
     }
 
     return (
-      <Link key={item.title} href={item.href || "#"}>
-        <Button
-          variant="ghost"
-          className={cn(
-            "w-full justify-start text-left",
-            collapsed && "justify-center",
-            "my-1",
-            depth > 0 && "pl-8"
-          )}
-        >
-          <Icon className=" h-4 w-4" />
+      <Button
+        key={item.title}
+        asChild
+        variant="ghost"
+        className={cn(
+          "w-full justify-start text-left",
+          collapsed && "justify-center",
+          "my-1",
+          depth > 0 && "pl-8"
+        )}
+      >
+        <Link href={item.href || "#"}>
+          <Icon className="h-4 w-4" />
           {!collapsed && <span>{item.title}</span>}
-        </Button>
-      </Link>
+        </Link>
+      </Button>
     );
   };
 
@@ -272,7 +279,6 @@ export default function DashboardLayout({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const { authUser, logout } = useAuthStore();
-  const router = useRouter();
 
   const handleLogout = async () => {
     try {
@@ -383,9 +389,9 @@ export default function DashboardLayout({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <Link href="/users/profile">
-                    <DropdownMenuItem>Xem hồ sơ</DropdownMenuItem>
-                  </Link>
+                  <DropdownMenuItem asChild>
+                    <Link href="/users/profile">Xem hồ sơ</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                     <AlertDialog

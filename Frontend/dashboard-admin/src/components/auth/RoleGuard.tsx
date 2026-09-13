@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAuthStore from "@/stores/useAuthStore";
 import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -31,9 +31,15 @@ export function RoleGuard({
 }: RoleGuardProps) {
   const router = useRouter();
   const { authUser, hasRole, isAdmin, isAdminOrStaff } = useAuthStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Xác định roles được phép
   const hasAccess = (() => {
+    if (!mounted) return true;
     if (requireAdmin) return isAdmin();
     if (requireStaff) return isAdminOrStaff();
     if (allowedRoles && allowedRoles.length > 0) {
@@ -44,10 +50,18 @@ export function RoleGuard({
 
   useEffect(() => {
     // Nếu đã có user nhưng không có quyền -> redirect về dashboard
-    if (authUser && !hasAccess) {
+    if (mounted && authUser && !hasAccess) {
       router.push("/");
     }
-  }, [authUser, hasAccess, router]);
+  }, [mounted, authUser, hasAccess, router]);
+
+  if (!mounted) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
 
   // Nếu không có quyền
   if (!hasAccess) {

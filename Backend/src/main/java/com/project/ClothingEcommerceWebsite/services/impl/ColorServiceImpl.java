@@ -7,8 +7,6 @@ import com.project.ClothingEcommerceWebsite.repositories.ColorRepository;
 import com.project.ClothingEcommerceWebsite.repositories.ProductVariantRepository;
 import com.project.ClothingEcommerceWebsite.services.ColorService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

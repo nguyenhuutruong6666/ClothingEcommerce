@@ -39,6 +39,7 @@ public class Product {
     private Category category;
 
     @Column(name = "is_published", nullable = false)
+    @Builder.Default
     private Boolean isPublished = true;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

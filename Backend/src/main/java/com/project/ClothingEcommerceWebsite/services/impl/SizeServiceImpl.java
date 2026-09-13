@@ -7,8 +7,6 @@ import com.project.ClothingEcommerceWebsite.repositories.ProductVariantRepositor
 import com.project.ClothingEcommerceWebsite.repositories.SizeRepository;
 import com.project.ClothingEcommerceWebsite.services.SizeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,10 +1,7 @@
 package com.project.ClothingEcommerceWebsite.services.impl;
 
 import com.project.ClothingEcommerceWebsite.dtos.request.CreateCouponRequest;
-import com.project.ClothingEcommerceWebsite.exception.BadRequestException;
 import com.project.ClothingEcommerceWebsite.models.Coupon;
-import com.project.ClothingEcommerceWebsite.models.Product;
-import com.project.ClothingEcommerceWebsite.models.ProductImage;
 import com.project.ClothingEcommerceWebsite.repositories.CouponRedemptionRepository;
 import com.project.ClothingEcommerceWebsite.repositories.CouponRepository;
 import com.project.ClothingEcommerceWebsite.services.CouponService;

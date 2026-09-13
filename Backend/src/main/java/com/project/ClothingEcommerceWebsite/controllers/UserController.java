@@ -2,11 +2,9 @@ package com.project.ClothingEcommerceWebsite.controllers;
 
 import com.project.ClothingEcommerceWebsite.dtos.request.ChangePasswordRequest;
 import com.project.ClothingEcommerceWebsite.dtos.request.ChangeUserRequest;
-import com.project.ClothingEcommerceWebsite.dtos.request.CreateProductVariantRequest;
 import com.project.ClothingEcommerceWebsite.dtos.request.CreateUserRequest;
 import com.project.ClothingEcommerceWebsite.dtos.respond.MessageResponse;
 import com.project.ClothingEcommerceWebsite.exception.NotFoundException;
-import com.project.ClothingEcommerceWebsite.models.Product;
 import com.project.ClothingEcommerceWebsite.models.Role;
 import com.project.ClothingEcommerceWebsite.models.User;
 import com.project.ClothingEcommerceWebsite.services.UserService;
@@ -16,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("${api.prefix}/users")

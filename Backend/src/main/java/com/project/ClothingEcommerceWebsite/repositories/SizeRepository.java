@@ -1,6 +1,5 @@
 package com.project.ClothingEcommerceWebsite.repositories;
 
-import com.project.ClothingEcommerceWebsite.models.Color;
 import com.project.ClothingEcommerceWebsite.models.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 

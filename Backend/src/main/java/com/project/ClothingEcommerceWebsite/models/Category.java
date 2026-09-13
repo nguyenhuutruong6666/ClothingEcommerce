@@ -34,5 +34,6 @@ public class Category {
     private String slug;
 
     @Column(name = "is_active", nullable = false)
+    @Builder.Default
     private Boolean isActive = true;
 }

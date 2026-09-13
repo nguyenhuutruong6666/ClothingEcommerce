@@ -50,7 +50,7 @@ public class JwtUtil {
         try {
             Jwt jwt = jwtDecoder.decode(token);
             String type = jwt.getClaim("type");
-            return expectedType.equals(type) && jwt.getExpiresAt().isAfter(Instant.now());
+            return expectedType.equals(type) && jwt.getExpiresAt() != null && jwt.getExpiresAt().isAfter(Instant.now());
         } catch (JwtException e) {
             System.out.println("⚠ Invalid token: " + e.getMessage());
             return false;

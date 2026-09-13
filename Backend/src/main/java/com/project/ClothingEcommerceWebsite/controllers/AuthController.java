@@ -11,7 +11,6 @@ import com.project.ClothingEcommerceWebsite.models.User;
 import com.project.ClothingEcommerceWebsite.services.UserService;
 import com.project.ClothingEcommerceWebsite.utils.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -33,17 +32,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
-    @Autowired
     private final SecurityUtil securityUtil;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
     
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse response) {
@@ -60,7 +52,7 @@ public class AuthController {
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
             String accessToken = securityUtil.createAccessToken(authentication);
             String refreshToken = securityUtil.createRefreshToken(authentication);
-            ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
+            ResponseCookie cookie = ResponseCookie.from("refreshToken", java.util.Objects.requireNonNull(refreshToken))
                     .httpOnly(true)
                     .secure(true)
                     .path("/")
@@ -87,7 +79,7 @@ public class AuthController {
 
         String newAccessToken = securityUtil.createAccessToken(auth);
         String newRefreshToken = securityUtil.createRefreshToken(auth);
-        ResponseCookie cookie = ResponseCookie.from("refreshToken", newRefreshToken)
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", java.util.Objects.requireNonNull(newRefreshToken))
                 .httpOnly(true)
                 .secure(true)
                 .path("/")

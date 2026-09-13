@@ -8,21 +8,16 @@ import com.project.ClothingEcommerceWebsite.repositories.CategoryRepository;
 import com.project.ClothingEcommerceWebsite.repositories.ProductRepository;
 import com.project.ClothingEcommerceWebsite.services.CategoryService;
 import com.project.ClothingEcommerceWebsite.utils.SlugUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public Category createCategory(CreateCategoryRequest request) {

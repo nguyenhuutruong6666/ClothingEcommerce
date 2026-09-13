@@ -1,13 +1,9 @@
 package com.project.ClothingEcommerceWebsite.controllers;
 
-import com.project.ClothingEcommerceWebsite.dtos.request.CreateCategoryRequest;
 import com.project.ClothingEcommerceWebsite.dtos.request.CreateCouponRequest;
-import com.project.ClothingEcommerceWebsite.models.Category;
 import com.project.ClothingEcommerceWebsite.models.Coupon;
-import com.project.ClothingEcommerceWebsite.models.ProductImage;
 import com.project.ClothingEcommerceWebsite.services.CouponService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,7 +52,7 @@ public class CouponController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCoupon(@PathVariable Long id, @RequestBody CreateCouponRequest request) {
         Coupon coupon = couponService.updateCoupon(id, request);
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok(coupon);
     }
 
     @DeleteMapping("/{id}")

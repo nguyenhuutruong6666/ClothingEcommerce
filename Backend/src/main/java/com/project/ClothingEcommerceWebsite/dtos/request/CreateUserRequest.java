@@ -25,6 +25,7 @@ public class CreateUserRequest {
 
     private String phone;
 
+    @Builder.Default
     private Boolean isActive = true;
 
     private List<Long> roleIds;

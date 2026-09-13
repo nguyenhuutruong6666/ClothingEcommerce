@@ -11,7 +11,6 @@ import com.project.ClothingEcommerceWebsite.repositories.ReviewRepository;
 import com.project.ClothingEcommerceWebsite.repositories.UserRepository;
 import com.project.ClothingEcommerceWebsite.services.ReviewService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

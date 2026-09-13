@@ -44,16 +44,27 @@ import { RoleGuard } from "@/components/auth/RoleGuard";
 import StatCard from "@/components/common/StatCard";
 
 export default function InventoryOverviewPage() {
-  const { products, fetchProducts } = useProductStore();
+  const { products, fetchProducts, isLoading: isProductsLoading } = useProductStore();
   const { categories, fetchCategories } = useCategoryStore();
-  const { fetchAllInventories, inventories } = useInventoryStore();
+  const { fetchAllInventories, inventories, isLoading: isInventoryLoading } = useInventoryStore();
+
+  const [isLoadingData, setIsLoadingData] = useState(true);
 
   // Fetch data khi component mount
   useEffect(() => {
-    fetchProducts();
-    fetchCategories();
-    fetchAllInventories();
+    const loadData = async () => {
+      setIsLoadingData(true);
+      await Promise.allSettled([
+        fetchProducts(),
+        fetchCategories(),
+        fetchAllInventories(),
+      ]);
+      setIsLoadingData(false);
+    };
+    loadData();
   }, [fetchProducts, fetchCategories, fetchAllInventories]);
+
+  const isLoading = isLoadingData || isProductsLoading || isInventoryLoading;
 
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<StockStatus | "all">("all");
@@ -195,14 +206,6 @@ export default function InventoryOverviewPage() {
     );
   };
 
-  // Loading state
-  if (products.length === 0 || inventories.length === 0) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-      </div>
-    );
-  }
   const statsCards = [
     {
       title: "Tổng sản phẩm",
@@ -220,14 +223,20 @@ export default function InventoryOverviewPage() {
       icon: AlertTriangle,
     },
     {
-      title: "Tổng săp hết",
+      title: "Tổng sắp hết",
       value: stats.lowStock.toString(),
       icon: AlertTriangle,
     },
   ];
+
   return (
     <RoleGuard requireStaff>
-      <div className="space-y-6">
+      {isLoading ? (
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+        </div>
+      ) : (
+        <div className="space-y-6">
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold">Quản lý tồn kho</h1>
@@ -441,6 +450,7 @@ export default function InventoryOverviewPage() {
           </div>
         )}
       </div>
+      )}
     </RoleGuard>
   );
 }

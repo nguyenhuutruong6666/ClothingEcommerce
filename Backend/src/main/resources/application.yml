@@ -13,7 +13,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: true
+        "[format_sql]": true
   servlet:
     multipart:
       max-file-size: 10MB
@@ -33,8 +33,9 @@ spring:
     api-key: ${SENDGRID_API_KEY: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}
     from-email: ${SENDGRID_FROM_EMAIL:hoductuyenqp@gmail.com}
   cloudinary:
-    api-key: ${CLOUDINARY_API_KEY:794879747219491}
-    api-secret: ${CLOUDINARY_API_SECRET:FWuxg7Zf3kg9uwonLtBQ5AbeYqY}
+    cloud-name: ${CLOUDINARY_CLOUD_NAME:dbtxqph5h}
+    api-key: ${CLOUDINARY_API_KEY:265477179784944}
+    api-secret: ${CLOUDINARY_API_SECRET:0V1vgEYMIZQ6LBImGzIgNqt24wM}
   vnpay:
     tmn-code: ${VNPAY_TMN_CODE:M5O0LLB4}
     secret-key: ${VNPAY_SECRET_KEY:5AG7WNH6INYKSRY4PB3XHI2BIWM2FSSV}

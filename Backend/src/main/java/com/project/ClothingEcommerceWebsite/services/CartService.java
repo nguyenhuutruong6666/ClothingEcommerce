@@ -1,7 +1,5 @@
 package com.project.ClothingEcommerceWebsite.services;
 
-import com.project.ClothingEcommerceWebsite.dtos.respond.CartItemResponse;
-import com.project.ClothingEcommerceWebsite.dtos.respond.CartResponse;
 import com.project.ClothingEcommerceWebsite.models.Cart;
 import com.project.ClothingEcommerceWebsite.models.CartItem;
 

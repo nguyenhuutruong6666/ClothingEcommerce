@@ -6,11 +6,9 @@ import com.project.ClothingEcommerceWebsite.exception.BadRequestException;
 import com.project.ClothingEcommerceWebsite.exception.NotFoundException;
 import com.project.ClothingEcommerceWebsite.models.*;
 import com.project.ClothingEcommerceWebsite.repositories.*;
-import com.project.ClothingEcommerceWebsite.services.CategoryService;
 import com.project.ClothingEcommerceWebsite.services.ProductService;
 import com.project.ClothingEcommerceWebsite.utils.CloudinaryUtil;
 import com.project.ClothingEcommerceWebsite.utils.SlugUtil;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -457,11 +455,24 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
-        if(orderItemRepository.existsByProductId(id)) {
+        if (orderItemRepository.existsByProductId(id)) {
             throw new BadRequestException("Không thể xóa sản phẩm đã có đơn hàng!!");
         }
+
+        // 1. Delete all cart items referencing variants of this product
+        List<ProductVariant> variants = productVariantRepository.findAllByProductId(product.getId());
+        for (ProductVariant variant : variants) {
+            cartItemRepository.deleteAllByVariantId(variant.getId());
+        }
+
+        // 2. Delete all reviews of this product
+        reviewRepository.deleteAllByProductId(product.getId());
+
+        // 3. Delete inventories & variants
         inventoryRepository.deleteAllByProductVariant_Product_Id(product.getId());
         productVariantRepository.deleteAllByProductId(product.getId());
+
+        // 4. Delete images from Cloudinary & DB
         List<ProductImage> productImages = productImageRepository.findAllByProductId(product.getId());
         for (ProductImage image : productImages) {
             try {
@@ -471,6 +482,8 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         productImageRepository.deleteAll(productImages);
+
+        // 5. Delete product
         productRepository.delete(product);
     }
 
