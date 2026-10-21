@@ -74,7 +74,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
     <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
       <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-3">
+        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-3.5 sm:py-4">
           <div className="flex items-center space-x-2 text-sm text-gray-600">
             <Link
               href="/"
@@ -91,7 +91,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
 
       {/* Mobile Tab Navigation */}
       <div className="lg:hidden bg-white border-b sticky top-0 z-40 shadow-sm">
-        <div className="container mx-auto px-2">
+        <div className="w-full mx-auto px-5 sm:px-8 md:px-10">
           <div className="flex overflow-x-auto scrollbar-hide gap-1 py-2">
             {sidebarItems.map((item) => {
               const Icon = item.icon;
@@ -151,7 +151,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
         </div>
       </div>
 
-      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 lg:py-8">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
           {/* Sidebar — Desktop only */}
           <div className="hidden lg:block lg:col-span-3">

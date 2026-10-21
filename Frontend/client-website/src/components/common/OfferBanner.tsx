@@ -23,16 +23,18 @@ export default function OfferBanner() {
             }));
     }, [coupons]);
   return (
-    <section className="relative h-[160px] xxs:h-[200px] xs:h-[260px] sm:h-[320px] md:h-[420px] lg:h-[520px] xl:h-[600px] w-full max-w-7xl mx-auto overflow-hidden rounded-lg sm:rounded-xl my-4 sm:my-10 px-2 sm:px-4">
-      <div className="absolute inset-2 sm:inset-4 rounded-lg sm:rounded-xl overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `${couponBanners.at(0)?.image ? `url(${couponBanners.at(0)?.image})` : `url(/images/Banners/OfferBanner.jpg)`}`,
-          }}
-        />
-        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent opacity-30"></div>
+    <section className="py-8 sm:py-12 lg:py-16">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
+        <div className="relative h-[160px] xxs:h-[200px] xs:h-[260px] sm:h-[320px] md:h-[420px] lg:h-[520px] xl:h-[600px] w-full overflow-hidden rounded-xl sm:rounded-2xl shadow-xs">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
+            style={{
+              backgroundImage: `${couponBanners.at(0)?.image ? `url(${couponBanners.at(0)?.image})` : `url(/images/Banners/OfferBanner.jpg)`}`,
+            }}
+          />
+          <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent opacity-30"></div>
+        </div>
       </div>
     </section>
   );

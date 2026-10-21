@@ -446,7 +446,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-3 sm:px-4 py-4 max-w-7xl">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12">
         {/* Breadcrumb */}
         <div className="mb-6">
           <Breadcrumb>

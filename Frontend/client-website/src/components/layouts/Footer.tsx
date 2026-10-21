@@ -1,50 +1,73 @@
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import { newsArticles } from "@/data/news";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Send } from "lucide-react";
+import {
+  Send,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+} from "lucide-react";
+import { toast } from "sonner";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !email.includes("@")) {
+      toast.error("Vui lòng nhập địa chỉ email hợp lệ!");
+      return;
+    }
+    setIsSubscribed(true);
+    toast.success("Cảm ơn bạn đã đăng ký nhận tin từ TEXCLO!");
+    setEmail("");
+  };
+
   const socialLinks = [
+    {
+      name: "Facebook",
+      href: "https://www.facebook.com/profile.php?id=61582315304972",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+        </svg>
+      ),
+    },
     {
       name: "Instagram",
       href: "https://www.instagram.com/",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
+          width="18"
+          height="18"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="lucide lucide-instagram"
         >
           <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
           <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-        </svg>
-      ),
-    },
-    {
-      name: "Facebook",
-      href: "https://www.facebook.com/",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="lucide lucide-facebook"
-        >
-          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
         </svg>
       ),
     },
@@ -54,15 +77,14 @@ export default function Footer() {
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
+          width="18"
+          height="18"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="lucide lucide-youtube"
         >
           <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
           <path d="m10 15 5.19-3L10 9v6z" />
@@ -70,135 +92,181 @@ export default function Footer() {
       ),
     },
     {
-      name: "Twitter",
-      href: "https://twitter.com/texclostore",
+      name: "TikTok",
+      href: "https://www.tiktok.com/",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
+          width="18"
+          height="18"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="lucide lucide-twitter"
         >
-          <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+          <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
         </svg>
       ),
     },
   ];
 
+  const shoppingCategories = [
+    { title: "Thời trang Nam", href: "/categories/nam" },
+    { title: "Thời trang Nữ", href: "/categories/nu" },
+    { title: "Thời trang Trẻ em", href: "/categories/tre-em" },
+    { title: "Phụ kiện cao cấp", href: "/categories/phu-kien" },
+    { title: "Sản phẩm mới nhất", href: "/" },
+  ];
+
+  const paymentBadges = ["COD", "VNPAY", "MOMO", "VISA", "MASTERCARD"];
+
   return (
-    <footer className="bg-black w-full mx-auto p-5 sm:p-8 md:p-12">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {/* Cột 1: Thông tin công ty */}
-        <div className="text-white sm:col-span-2 lg:col-span-1">
-          <div className="flex items-center space-x-2 mb-4">
+    <footer className="bg-black text-white w-full border-t border-zinc-900">
+      {/* Main Footer Container */}
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
+          
+          {/* Cột 1: Thông tin thương hiệu & Đăng ký nhận tin (4 cột trên desktop) */}
+          <div className="sm:col-span-1 lg:col-span-4 flex flex-col justify-between h-full">
             <div>
-              <h2 className="font-bold text-2xl md:text-3xl uppercase p-2">TEXCLO</h2>
-              <p className="text-sm text-gray-300 leading-relaxed">
-                TEXCLO - Thương hiệu thời trang nam phong cách và hiện đại, mang đến sự tự tin và khác biệt trong từng thiết kế.
-              </p>
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <form className="relative">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="p-5 backdrop-blur-sm text-white"
-            />
-            <Button
-              type="submit"
-              size="icon"
-              className="absolute right-1 top-1 h-8 w-8 rounded-full bg-primary text-primary-foreground transition-transform hover:scale-105"
-            >
-              <Send className="h-4 w-4" />
-              <span className="sr-only">Subscribe</span>
-            </Button>
-          </form>
-        </div>
-
-        {/* Cột 2: Thông tin liên hệ */}
-        <div className="text-white">
-          <h3 className="font-bold text-base md:text-lg uppercase mb-4">
-            Thông tin liên hệ
-          </h3>
-          <div className="flex flex-col space-y-2">
-            <p className="text-sm text-gray-300">
-              Email: texclostore@gmail.com
-            </p>
-            <p className="text-sm text-gray-300">Điện thoại: 0123456789</p>
-            <p className="text-sm text-gray-300">
-              Địa chỉ: 136 Xuân Thủy, Hà Nội
-            </p>
-          </div>
-        </div>
-
-        {/* Cột 3: Chính sách bán hàng */}
-        <div className="text-white">
-          <h3 className="font-bold text-base md:text-lg uppercase mb-4">
-            CHÍNH SÁCH BÁN HÀNG
-          </h3>
-          <div className="flex flex-col space-y-2">
-            {newsArticles.map((article) => (
-              <Link
-                key={article.id}
-                href={`/news/${article.slug}`}
-                className="text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                {article.title}
+              <Link href="/" className="inline-block mb-3">
+                <span className="font-extrabold text-2xl sm:text-3xl tracking-wider text-white uppercase">
+                  TEXCLO
+                </span>
               </Link>
-            ))}
-          </div>
-        </div>
+              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-4 max-w-sm">
+                TEXCLO - Thương hiệu thời trang phong cách và hiện đại, mang đến sự tự tin, thoải mái và khác biệt trong từng thiết kế.
+              </p>
 
-        {/* Cột 4: Theo dõi chúng tôi */}
-        <div className="text-white">
-          <div className="flex flex-col space-y-2">
-            <h3 className="font-bold text-base md:text-lg uppercase mb-4">
-              THEO DÕI CHÚNG TÔI
+              {/* Social links */}
+              <div className="flex items-center gap-2.5">
+                <span className="text-xs text-zinc-400 mr-1 hidden sm:inline">
+                  Kết nối:
+                </span>
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.name}
+                    className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-zinc-800 hover:border-zinc-700 transition-colors"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Cột 2: Danh mục mua sắm (2 cột trên desktop) */}
+          <div className="sm:col-span-1 lg:col-span-2">
+            <h3 className="font-bold text-sm sm:text-base uppercase tracking-wider text-white mb-3.5 sm:mb-4 pb-1.5 border-b border-zinc-800 inline-block">
+              Mua sắm
             </h3>
-            <div className="flex mb-6 gap-3 flex-wrap">
-              {socialLinks.map((socialLink, index) => (
-                <a
-                  key={index}
-                  href={socialLink.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={socialLink.name}
-                  className="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors group"
-                >
-                  <div className="p-2 bg-gray-800 rounded-full group-hover:bg-gray-700 transition-colors">
-                    {socialLink.icon}
-                  </div>
-                </a>
+            <ul className="space-y-2.5">
+              {shoppingCategories.map((item) => (
+                <li key={item.title}>
+                  <Link
+                    href={item.href}
+                    className="text-xs sm:text-sm text-zinc-400 hover:text-white transition-colors flex items-center group"
+                  >
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      {item.title}
+                    </span>
+                  </Link>
+                </li>
               ))}
-            </div>
-            {/* Facebook iframe — responsive */}
-            <div className="w-full overflow-hidden rounded-md">
-              <iframe
-                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61582315304972&tabs&width=340&height=130&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true&appId"
-                width="100%"
-                height="130"
-                style={{ border: "none", overflow: "hidden", maxWidth: "340px" }}
-                allowFullScreen={true}
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
+            </ul>
+          </div>
+
+          {/* Cột 3: Chính sách bán hàng (3 cột trên desktop) */}
+          <div className="sm:col-span-1 lg:col-span-3">
+            <h3 className="font-bold text-sm sm:text-base uppercase tracking-wider text-white mb-3.5 sm:mb-4 pb-1.5 border-b border-zinc-800 inline-block">
+              Chính sách bán hàng
+            </h3>
+            <ul className="space-y-2.5">
+              {newsArticles.map((article) => (
+                <li key={article.id}>
+                  <Link
+                    href={`/news/${article.slug}`}
+                    className="text-xs sm:text-sm text-zinc-400 hover:text-white transition-colors flex items-center group"
+                  >
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      {article.title}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/news"
+                  className="text-xs sm:text-sm font-semibold text-zinc-300 hover:text-white transition-colors inline-flex items-center gap-1 group mt-1"
+                >
+                  <span>Tất cả điều khoản</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Cột 4: Thông tin liên hệ & Hỗ trợ (3 cột trên desktop) */}
+          <div className="sm:col-span-1 lg:col-span-3">
+            <h3 className="font-bold text-sm sm:text-base uppercase tracking-wider text-white mb-3.5 sm:mb-4 pb-1.5 border-b border-zinc-800 inline-block">
+              Thông tin liên hệ
+            </h3>
+            <div className="space-y-3 text-xs sm:text-sm text-zinc-300">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-zinc-400 flex-shrink-0 mt-0.5" />
+                <span className="leading-relaxed">
+                  136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-zinc-400 flex-shrink-0" />
+                <span>
+                  Hotline:{" "}
+                  <a
+                    href="tel:19001234"
+                    className="text-white font-semibold hover:underline"
+                  >
+                    1900 1234
+                  </a>{" "}
+                  (8:00 - 22:00)
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-zinc-400 flex-shrink-0" />
+                <span>
+                  Email:{" "}
+                  <a
+                    href="mailto:texclostore@gmail.com"
+                    className="text-white hover:underline"
+                  >
+                    texclostore@gmail.com
+                  </a>
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Clock className="w-4 h-4 text-zinc-400 flex-shrink-0" />
+                <span>Mở cửa: 08:30 - 22:00 hàng ngày</span>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Copyright */}
-      <div className="border-t border-gray-700 mt-8 pt-4 text-center">
-        <p className="text-xs sm:text-sm text-gray-400">
-          © 2025 TEXCLO. Tất cả quyền được bảo lưu.
-        </p>
+        </div>
+
+        {/* Bottom Bar: Copyright & Payment Methods */}
+        <div className="border-t border-zinc-800/80 mt-8 sm:mt-10 pt-5 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-zinc-400 text-center sm:text-left">
+            © {new Date().getFullYear()} TEXCLO. Tất cả các quyền được bảo lưu.
+          </p>
+        </div>
       </div>
     </footer>
   );

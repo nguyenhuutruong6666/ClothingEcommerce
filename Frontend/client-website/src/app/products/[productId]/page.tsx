@@ -277,7 +277,7 @@ export default function ProductDetailPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb - RESPONSIVE */}
       <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-4">
+        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-3.5 sm:py-4">
           {/* Breadcrumb using shadcn/ui */}
           <Breadcrumb className="hidden sm:block">
             <BreadcrumbList>
@@ -312,7 +312,7 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Main content - FIXED RESPONSIVE */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
           {/* Product Images - FIXED FOR MOBILE */}
           <div className="w-full">
@@ -513,7 +513,7 @@ export default function ProductDetailPage() {
         </div>
 
         {/* Tabs Section - Description & Reviews */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="pt-8 sm:pt-12 border-t mt-8 sm:mt-12">
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}

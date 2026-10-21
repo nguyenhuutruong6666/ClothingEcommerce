@@ -57,20 +57,22 @@ export default function OrderDetailPage() {
   };
   if (isLoading) {
     return (
-      <div className="p-6 max-w-4xl mx-auto">
-        <div className="mb-6">
-          <Skeleton className="h-8 w-32 mb-4" />
-          <Skeleton className="h-6 w-48" />
+      <UserLayout>
+        <div className="space-y-6">
+          <div className="mb-6">
+            <Skeleton className="h-8 w-32 mb-4" />
+            <Skeleton className="h-6 w-48" />
+          </div>
+          <Skeleton className="h-96" />
         </div>
-        <Skeleton className="h-96" />
-      </div>
+      </UserLayout>
     );
   }
 
   if (!currentOrder) {
     return (
-      <div className="p-6 max-w-4xl mx-auto text-center">
-        <div className="mt-12">
+      <UserLayout>
+        <div className="text-center py-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Không tìm thấy đơn hàng
           </h2>
@@ -82,14 +84,14 @@ export default function OrderDetailPage() {
             Quay lại đơn hàng
           </Button>
         </div>
-      </div>
+      </UserLayout>
     );
   }
 
   // Normal view layout
   return (
     <UserLayout>
-      <div className="p-2 max-w-6xl mx-auto">
+      <div className="space-y-6">
         {/* Header */}
         <div className="mb-6">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-4">

@@ -97,7 +97,7 @@ export default function Header() {
     <>
       {/* Top Header Bar - Desktop */}
       <div className="bg-black text-white py-2 text-xs sm:text-sm hidden md:block">
-        <div className="container mx-auto px-4">
+        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4 lg:space-x-6">
               <div className="flex items-center space-x-2">
@@ -115,7 +115,7 @@ export default function Header() {
 
       {/* Top Header Bar - Mobile */}
       <div className="bg-black text-white py-1.5 text-xs md:hidden">
-        <div className="container mx-auto px-3">
+        <div className="w-full mx-auto px-5 sm:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-1.5">
               <Phone className="w-3 h-3" />
@@ -133,11 +133,11 @@ export default function Header() {
 
       <header
         className={cn(
-          "bg-white sticky top-0 z-50 py-1 md:py-2 px-2 transition-shadow duration-200",
+          "bg-[#fafafa] sticky top-0 z-50 py-1 md:py-2 transition-shadow duration-200",
           scrolled && "shadow-md"
         )}
       >
-        <div className="container mx-auto px-2 sm:px-4">
+        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
           <div className="flex items-center justify-between h-14 md:h-16">
             {/* Logo */}
             <div className="flex items-center flex-shrink-0">

@@ -38,7 +38,7 @@ export default function ResetPasswordPage() {
 
   if (isValidToken === null) {
     return (
-      <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+      <div className="bg-muted flex min-h-[calc(100vh-220px)] flex-col items-center justify-center gap-6 py-8 sm:py-10 lg:py-12 px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
         <div className="flex items-center justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
         </div>
@@ -47,7 +47,7 @@ export default function ResetPasswordPage() {
   }
   if (!isValidToken) {
     return (
-      <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+      <div className="bg-muted flex min-h-[calc(100vh-220px)] flex-col items-center justify-center gap-6 py-8 sm:py-10 lg:py-12 px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
         <div className="flex w-full max-w-sm flex-col gap-6">
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center">
@@ -93,7 +93,7 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <div className="bg-muted flex min-h-[calc(100vh-220px)] flex-col items-center justify-center gap-6 py-8 sm:py-10 lg:py-12 px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
       <div className="flex w-full max-w-sm flex-col gap-6">
         <ResetPasswordForm token={token} />
       </div>

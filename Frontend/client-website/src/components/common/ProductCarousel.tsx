@@ -65,7 +65,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
     <div className="w-full">
       {/* Header */}
       {title && (
-        <div className="flex items-center w-full gap-3 sm:gap-4 px-3 sm:px-6 md:px-8 max-w-6xl mx-auto my-6 md:my-12">
+        <div className="flex items-center w-full gap-3 sm:gap-4 max-w-6xl mx-auto mb-6 sm:mb-8 md:mb-10">
           <div className="h-[2px] bg-gradient-to-r from-[#111111] to-[#EEEEEE] flex-1" />
           {title && (
             <h2 className="text-base sm:text-2xl md:text-3xl font-bold text-gray-900 whitespace-nowrap">
@@ -77,7 +77,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
       )}
 
       {/* Carousel */}
-      <div className="relative px-3 sm:px-6 md:px-12">
+      <div className="relative">
         <Carousel
           opts={{
             align: "start",
@@ -107,8 +107,8 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
           {/* Navigation Arrows */}
           {showArrows && (
             <>
-              <CarouselPrevious className="hidden md:flex -left-6 bg-white shadow-lg border-gray-200 hover:bg-gray-50" />
-              <CarouselNext className="hidden md:flex -right-6 bg-white shadow-lg border-gray-200 hover:bg-gray-50" />
+              <CarouselPrevious className="hidden md:flex -left-4 lg:-left-5 bg-white shadow-lg border-gray-200 hover:bg-gray-50 z-10" />
+              <CarouselNext className="hidden md:flex -right-4 lg:-right-5 bg-white shadow-lg border-gray-200 hover:bg-gray-50 z-10" />
             </>
           )}
         </Carousel>

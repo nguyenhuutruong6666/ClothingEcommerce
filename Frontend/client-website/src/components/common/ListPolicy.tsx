@@ -62,26 +62,32 @@ const policyData: PolicyItem[] = [
 
 function ListPolicy() {
   return (
-    <div className="flex size-full items-center justify-center bg-background">
-      <Marquee>
-        <MarqueeFade side="left" />
-        <MarqueeFade side="right" />
-        <MarqueeContent>
-          {policyData.map((policy) => (
-            <MarqueeItem
-              className="flex items-start text-start  gap-3 py-2 md:py-4 px-5  space-x-4"
-              key={policy.id}
-            >
-              {policy.icon}
-              <h3 className="text-lg font-bold text-gray-800 mb-1">
-                {policy.title}
-              </h3>
-              <h4 className=" text-gray-600">{policy.description}</h4>
-            </MarqueeItem>
-          ))}
-        </MarqueeContent>
-      </Marquee>
-    </div>
+    <section className="py-8 sm:py-12 lg:py-16 border-t bg-stone-50/60">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
+        <div className="flex size-full items-center justify-center">
+          <Marquee>
+            <MarqueeFade side="left" />
+            <MarqueeFade side="right" />
+            <MarqueeContent>
+              {policyData.map((policy) => (
+                <MarqueeItem
+                  className="flex items-start text-start gap-3 py-2 md:py-4 px-5 space-x-4"
+                  key={policy.id}
+                >
+                  {policy.icon}
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-800 mb-1">
+                      {policy.title}
+                    </h3>
+                    <h4 className="text-gray-600">{policy.description}</h4>
+                  </div>
+                </MarqueeItem>
+              ))}
+            </MarqueeContent>
+          </Marquee>
+        </div>
+      </div>
+    </section>
   );
 }
 

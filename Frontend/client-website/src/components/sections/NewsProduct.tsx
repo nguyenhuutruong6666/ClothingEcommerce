@@ -22,8 +22,8 @@ export default function NewsProduct({ products }: NewsProductProps) {
     }, [products]);
 
     return (
-        <section className="py-3 bg-white">
-            <div className="w-full mx-auto">
+        <section className="py-8 sm:py-12 lg:py-16 bg-white">
+            <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
                 <ProductCarousel
                     products={newsProducts}
                     title="Sản phẩm mới nhất"

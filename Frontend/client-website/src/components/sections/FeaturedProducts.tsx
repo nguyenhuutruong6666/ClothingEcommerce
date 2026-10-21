@@ -26,8 +26,8 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
     };
 
     return (
-        <section className="py-4 sm:py-6">
-            <div className="w-full mx-auto px-3 sm:px-6 lg:px-10 xl:px-12">
+        <section className="py-8 sm:py-12 lg:py-16">
+            <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
                 <ProductGrid
                     products={displayedProducts}
                     title="Sản Phẩm Nổi Bật"
