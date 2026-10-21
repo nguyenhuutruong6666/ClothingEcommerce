@@ -24,6 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -37,6 +38,7 @@ import {
   List,
   Warehouse,
   Ruler,
+  User,
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -113,17 +115,11 @@ interface SidebarProps {
   collapsed: boolean;
   onCollapse: (collapsed: boolean) => void;
   className?: string;
-  handleLogout: () => void;
-  showLogoutDialog: boolean;
-  setShowLogoutDialog: (showLogoutDialog: boolean) => void;
 }
 
 function Sidebar({
   collapsed,
   className,
-  handleLogout,
-  showLogoutDialog,
-  setShowLogoutDialog,
 }: Omit<SidebarProps, "onCollapse">) {
   const { isAdmin } = useAuthStore();
   const [openItems, setOpenItems] = useState<string[]>([]);
@@ -233,42 +229,6 @@ function Sidebar({
         <div className="px-3">
           <div className="space-y-1">
             {filteredSidebarItems.map((item) => renderSidebarItem(item))}
-            <AlertDialog
-              open={showLogoutDialog}
-              onOpenChange={setShowLogoutDialog}
-            >
-              <AlertDialogTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className={cn(
-                    "w-full",
-                    collapsed && "justify-center",
-                    " justify-start text-left text-white hover:text-red-400"
-                  )}
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  {!collapsed && <span>Đăng xuất</span>}
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Xác nhận đăng xuất</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Bạn có chắc chắn muốn đăng xuất khỏi hệ thống quản trị
-                    không?
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Hủy</AlertDialogCancel>
-                  <AlertDialogAction
-                    onClick={handleLogout}
-                    className="bg-red-600 hover:bg-red-700"
-                  >
-                    Đăng xuất
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
           </div>
         </div>
       </div>
@@ -312,9 +272,6 @@ export default function DashboardLayout({
           <Sidebar
             collapsed={collapsed}
             className="text-white"
-            handleLogout={handleLogout}
-            showLogoutDialog={showLogoutDialog}
-            setShowLogoutDialog={setShowLogoutDialog}
           />
         </ScrollArea>
       </div>
@@ -329,9 +286,6 @@ export default function DashboardLayout({
             <Sidebar
               collapsed={false}
               className="text-white"
-              handleLogout={handleLogout}
-              showLogoutDialog={showLogoutDialog}
-              setShowLogoutDialog={setShowLogoutDialog}
             />
           </ScrollArea>
         </SheetContent>
@@ -380,61 +334,83 @@ export default function DashboardLayout({
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="relative h-10 w-auto rounded-full p-2"
+                    className="flex items-center gap-3 h-auto py-1.5 px-3 rounded-xl hover:bg-gray-100 transition-all border border-transparent hover:border-gray-200 cursor-pointer"
                   >
-                    <div className="flex items-center space-x-2">
-                      <div className="hidden md:block text-left">
-                        <p className="text-sm font-medium">
-                          {authUser?.fullName}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {authUser?.email}
-                        </p>
-                      </div>
+                    <Avatar className="h-9 w-9 border border-gray-200 bg-gray-100">
+                      <AvatarFallback className="bg-gray-900 text-white text-xs font-bold">
+                        {authUser?.fullName ? authUser.fullName.charAt(0).toUpperCase() : "A"}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="hidden md:block text-left">
+                      <p className="text-sm font-semibold text-gray-900 leading-tight">
+                        {authUser?.fullName}
+                      </p>
+                      <p className="text-xs text-gray-500 font-normal leading-tight mt-0.5">
+                        {authUser?.email}
+                      </p>
+                    </div>
+                    {/* Dấu 3 gạch */}
+                    <div className="p-1 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-200/60 transition-colors">
+                      <Menu className="h-4 w-4" />
                     </div>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild>
-                    <Link href="/users/profile">Xem hồ sơ</Link>
+                <DropdownMenuContent
+                  align="end"
+                  className="w-56 p-1.5 rounded-2xl shadow-xl border border-gray-100 bg-white animate-in fade-in-0 zoom-in-95 duration-150"
+                >
+                  {/* Mobile user info */}
+                  <div className="md:hidden px-3 py-2 border-b border-gray-100 mb-1">
+                    <p className="text-sm font-semibold text-gray-900 truncate">
+                      {authUser?.fullName}
+                    </p>
+                    <p className="text-xs text-gray-500 truncate">
+                      {authUser?.email}
+                    </p>
+                  </div>
+
+                  <DropdownMenuItem asChild className="rounded-xl px-3 py-2.5 cursor-pointer text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 transition-colors">
+                    <Link href="/users/profile" className="flex items-center gap-2.5 w-full text-sm font-medium">
+                      <User className="h-4 w-4 text-gray-500" />
+                      <span>Xem hồ sơ</span>
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                    <AlertDialog
-                      open={showLogoutDialog}
-                      onOpenChange={setShowLogoutDialog}
-                    >
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start text-left text-red-600 hover:text-red-400"
+
+                  <DropdownMenuSeparator className="my-1 bg-gray-100" />
+
+                  <AlertDialog
+                    open={showLogoutDialog}
+                    onOpenChange={setShowLogoutDialog}
+                  >
+                    <AlertDialogTrigger asChild>
+                      <button
+                        type="button"
+                        className="flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer text-left outline-none"
+                      >
+                        <LogOut className="h-4 w-4 text-red-500" />
+                        <span>Đăng xuất</span>
+                      </button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="rounded-2xl max-w-md">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-lg font-bold text-gray-900">
+                          Xác nhận đăng xuất
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-sm text-gray-600">
+                          Bạn có chắc chắn muốn đăng xuất khỏi hệ thống quản trị không?
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter className="gap-2 sm:gap-0">
+                        <AlertDialogCancel className="rounded-xl">Hủy</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={handleLogout}
+                          className="rounded-xl bg-red-600 hover:bg-red-700 text-white font-medium"
                         >
-                          <LogOut className="mr-2 h-4 w-4" />
                           Đăng xuất
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>
-                            Xác nhận đăng xuất
-                          </AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Bạn có chắc chắn muốn đăng xuất khỏi hệ thống quản
-                            trị không?
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Hủy</AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={handleLogout}
-                            className="bg-red-600 hover:bg-red-700"
-                          >
-                            Đăng xuất
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </DropdownMenuItem>
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
