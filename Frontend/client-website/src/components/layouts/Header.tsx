@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { Search, Menu, X, Phone, Mail, User, Headphones } from "lucide-react";
-import { CartSheet } from "@/app/cart/_components/CartSheet";
+import { Search, Menu, X, Phone, Mail, User, Headphones, ChevronDown } from "lucide-react";
+import { CartSheet } from "@/components/common/CartSheet";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,7 +16,8 @@ import { cn } from "@/lib/utils";
 import useAuthStore from "@/stores/useAuthStore";
 import { useCategoryStore } from "@/stores/categoryStore";
 import Logo from "../common/Logo";
-import SearchBar from "../../app/search/_components/SearchBar";
+import SearchBar from "../common/SearchBar";
+
 // Component ListItem
 const ListItem = ({
   className,
@@ -56,25 +57,51 @@ const ListItem = ({
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [openCategory, setOpenCategory] = useState<number | null>(null);
   const { authUser } = useAuthStore();
   const { categories, fetchCategories } = useCategoryStore();
 
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
+
+  // Scroll shadow effect
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMenuOpen(false);
+        setIsSearchOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const parentCategories = categories.filter(
     (cat) => !cat.parentId && cat.isActive
   );
 
+  const toggleCategory = useCallback((id: number) => {
+    setOpenCategory((prev) => (prev === id ? null : id));
+  }, []);
+
   return (
     <>
       {/* Top Header Bar - Desktop */}
-      <div className="bg-black text-white py-2 text-sm hidden md:block">
+      <div className="bg-black text-white py-2 text-xs sm:text-sm hidden md:block">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-4 lg:space-x-6">
               <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4" />
+                <Phone className="w-3 h-3 lg:w-4 lg:h-4" />
                 <span>HOTLINE: 1900 1234</span>
               </div>
               <div className="flex items-center space-x-2">
@@ -82,32 +109,21 @@ export default function Header() {
                 <span className="hidden lg:inline">support@texclo.com</span>
               </div>
             </div>
-            <div className="flex items-center space-x-6">
-              <Link
-                href="/support"
-                className="hover:cursor-pointer transition-colors"
-              >
-                <div className="flex items-center space-x-2">
-                  <Headphones className="w-4 h-4" />
-                  <span>SUPPORT</span>
-                </div>
-              </Link>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Top Header Bar - Mobile */}
-      <div className="bg-black text-white py-2 text-sm md:hidden">
-        <div className="container mx-auto px-4">
+      <div className="bg-black text-white py-1.5 text-xs md:hidden">
+        <div className="container mx-auto px-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Phone className="w-4 h-4" />
+            <div className="flex items-center space-x-1.5">
+              <Phone className="w-3 h-3" />
               <span>1900 1234</span>
             </div>
             <Link href="/support" className="transition-colors">
-              <div className="flex items-center space-x-2">
-                <Headphones className="w-4 h-4" />
+              <div className="flex items-center space-x-1.5">
+                <Headphones className="w-3 h-3" />
                 <span>SUPPORT</span>
               </div>
             </Link>
@@ -115,25 +131,30 @@ export default function Header() {
         </div>
       </div>
 
-      <header className="bg-white sticky top-0 z-50 py-1 md:py-2 px-2">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+      <header
+        className={cn(
+          "bg-white sticky top-0 z-50 py-1 md:py-2 px-2 transition-shadow duration-200",
+          scrolled && "shadow-md"
+        )}
+      >
+        <div className="container mx-auto px-2 sm:px-4">
+          <div className="flex items-center justify-between h-14 md:h-16">
             {/* Logo */}
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold">
+            <div className="flex items-center flex-shrink-0">
+              <Link href="/" className="text-xl sm:text-2xl font-bold">
                 <Logo />
               </Link>
             </div>
 
-            {/* Desktop Navigation with NavigationMenu */}
+            {/* Desktop Navigation */}
             <div className="hidden md:block">
               <NavigationMenu>
                 <NavigationMenuList>
                   {/* Trang chủ */}
-                  <NavigationMenuItem className="px-2">
+                  <NavigationMenuItem className="px-1 lg:px-2">
                     <Link href="/">
                       <NavigationMenuLink asChild>
-                        <span className="uppercase font-bold">Trang chủ</span>
+                        <span className="uppercase font-bold text-sm lg:text-base">Trang chủ</span>
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>
@@ -145,10 +166,10 @@ export default function Header() {
                     );
                     if (children.length === 0) {
                       return (
-                        <NavigationMenuItem key={parent.id} className="px-2">
+                        <NavigationMenuItem key={parent.id} className="px-1 lg:px-2">
                           <Link href={`/categories/${parent.slug}`}>
                             <NavigationMenuLink asChild>
-                              <span className="uppercase font-bold">
+                              <span className="uppercase font-bold text-sm lg:text-base">
                                 {parent.name}
                               </span>
                             </NavigationMenuLink>
@@ -158,8 +179,8 @@ export default function Header() {
                     }
 
                     return (
-                      <NavigationMenuItem key={parent.id} className="px-2">
-                        <NavigationMenuTrigger className="uppercase font-bold">
+                      <NavigationMenuItem key={parent.id} className="px-1 lg:px-2">
+                        <NavigationMenuTrigger className="uppercase font-bold text-sm lg:text-base">
                           <Link
                             href={`/categories/${parent.slug}`}
                             onClick={(e) => e.stopPropagation()}
@@ -169,7 +190,7 @@ export default function Header() {
                         </NavigationMenuTrigger>
 
                         <NavigationMenuContent>
-                          <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] p-4">
+                          <ul className="grid w-[320px] gap-2 md:w-[400px] md:grid-cols-2 lg:w-[500px] p-3 md:p-4">
                             {children.map((child) => (
                               <ListItem
                                 key={child.id}
@@ -182,10 +203,11 @@ export default function Header() {
                       </NavigationMenuItem>
                     );
                   })}
-                  <NavigationMenuItem className="px-2">
+
+                  <NavigationMenuItem className="px-1 lg:px-2">
                     <Link href="/news">
                       <NavigationMenuLink asChild>
-                        <span className="uppercase font-bold">Tin tức</span>
+                        <span className="uppercase font-bold text-sm lg:text-base">Tin tức</span>
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>
@@ -193,15 +215,19 @@ export default function Header() {
               </NavigationMenu>
             </div>
 
-            {/* Search, Cart, User */}
-            <div className="flex items-center space-x-4">
+            {/* Right Actions: Search, Cart, User, Hamburger */}
+            <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
               {/* Desktop Search */}
               <SearchBar className="hidden md:block" />
 
               {/* Mobile Search Button */}
               <button
-                className="md:hidden p-2 hover:bg-gray-100 rounded-full"
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                className="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
+                onClick={() => {
+                  setIsSearchOpen(!isSearchOpen);
+                  setIsMenuOpen(false);
+                }}
+                aria-label="Tìm kiếm"
               >
                 <Search className="w-5 h-5" />
               </button>
@@ -210,15 +236,20 @@ export default function Header() {
 
               <Link
                 href={authUser ? "/user" : "/user/login"}
-                className="p-2 hover:bg-gray-100 rounded-full"
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                aria-label="Tài khoản"
               >
                 <User className="w-5 h-5" />
               </Link>
 
-              {/* Mobile menu button */}
+              {/* Mobile Hamburger */}
               <button
-                className="md:hidden p-2"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
+                onClick={() => {
+                  setIsMenuOpen(!isMenuOpen);
+                  setIsSearchOpen(false);
+                }}
+                aria-label={isMenuOpen ? "Đóng menu" : "Mở menu"}
               >
                 {isMenuOpen ? (
                   <X className="w-5 h-5" />
@@ -229,12 +260,32 @@ export default function Header() {
             </div>
           </div>
 
+          {/* Mobile Search Panel */}
+          <div
+            className={cn(
+              "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
+              isSearchOpen ? "max-h-24 py-3 border-t" : "max-h-0"
+            )}
+          >
+            <div className="bg-gray-50 rounded-lg px-2 py-2">
+              <SearchBar
+                isMobile={true}
+                onClose={() => setIsSearchOpen(false)}
+              />
+            </div>
+          </div>
+
           {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="md:hidden py-4 px-2 border-t border-stone-200 bg-white space-y-1">
+          <div
+            className={cn(
+              "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
+              isMenuOpen ? "max-h-screen border-t" : "max-h-0"
+            )}
+          >
+            <nav className="py-2 space-y-0.5">
               <Link
                 href="/"
-                className="block py-2.5 px-3 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 rounded-lg transition-colors"
+                className="flex items-center px-4 py-3 text-gray-800 font-medium hover:bg-gray-50 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Trang chủ
@@ -255,7 +306,7 @@ export default function Header() {
                     <Link
                       key={parent.id}
                       href={`/categories/${parent.slug}`}
-                      className="block py-2.5 px-3 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 rounded-lg transition-colors"
+                      className="flex items-center px-4 py-3 text-gray-800 font-medium hover:bg-gray-50 rounded-md transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {parent.name}
@@ -263,26 +314,47 @@ export default function Header() {
                   );
                 }
 
+                const isOpen = openCategory === parent.id;
+
                 return (
-                  <div key={parent.id} className="py-1">
-                    <Link
-                      href={`/categories/${parent.slug}`}
-                      className="block py-2 px-3 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 rounded-lg transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
+                  <div key={parent.id}>
+                    <button
+                      className="flex items-center justify-between w-full px-4 py-3 text-gray-800 font-medium hover:bg-gray-50 rounded-md transition-colors"
+                      onClick={() => toggleCategory(parent.id)}
                     >
-                      {parent.name}
-                    </Link>
-                    <div className="pl-6 space-y-1 mt-1 border-l-2 border-stone-200 ml-3">
-                      {children.map((child) => (
+                      <span>{parent.name}</span>
+                      <ChevronDown
+                        className={cn(
+                          "w-4 h-4 transition-transform duration-200",
+                          isOpen && "rotate-180"
+                        )}
+                      />
+                    </button>
+                    <div
+                      className={cn(
+                        "overflow-hidden transition-all duration-200 ease-in-out",
+                        isOpen ? "max-h-96" : "max-h-0"
+                      )}
+                    >
+                      <div className="pl-4 pb-2 space-y-0.5 border-l-2 border-gray-100 ml-4">
                         <Link
-                          key={child.id}
-                          href={`/categories/${parent.slug}/${child.slug}`}
-                          className="block py-1.5 px-3 text-xs font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors"
+                          href={`/categories/${parent.slug}`}
+                          className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          {child.name}
+                          Tất cả {parent.name}
                         </Link>
-                      ))}
+                        {children.map((child) => (
+                          <Link
+                            key={child.id}
+                            href={`/categories/${parent.slug}/${child.slug}`}
+                            className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {child.name}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 );
@@ -290,23 +362,13 @@ export default function Header() {
 
               <Link
                 href="/news"
-                className="block py-2.5 px-3 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 rounded-lg transition-colors"
+                className="flex items-center px-4 py-3 text-gray-800 font-medium hover:bg-gray-50 rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Tin tức
               </Link>
-            </div>
-          )}
-
-          {/* Mobile Search */}
-          {isSearchOpen && (
-            <div className="md:hidden py-4 border-t bg-gray-50">
-              <SearchBar
-                isMobile={true}
-                onClose={() => setIsSearchOpen(false)}
-              />
-            </div>
-          )}
+            </nav>
+          </div>
         </div>
       </header>
     </>

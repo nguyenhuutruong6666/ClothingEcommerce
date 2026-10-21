@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2026 at 10:22 AM
+-- Generation Time: Sep 13, 2026 at 11:03 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -95,25 +95,6 @@ INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `is_active`) VALUES
 (4, NULL, 'Phụ kiện', 'phu-kien', 1),
 (5, NULL, 'Bộ sưu tập', 'bo-suu-tap', 1),
 (6, 1, 'Áo nam', 'ao-nam', 1),
-(7, 1, 'Quần nam', 'quan-nam', 1),
-(8, 1, 'Đồ mặc ngoài nam', 'do-mac-ngoai-nam', 1),
-(9, 1, 'Đồ thể thao nam', 'do-the-thao-nam', 1),
-(10, 2, 'Áo nữ', 'ao-nu', 1),
-(11, 2, 'Váy & Đầm', 'vay-dam', 1),
-(12, 2, 'Quần nữ', 'quan-nu', 1),
-(13, 2, 'Đồ mặc ngoài nữ', 'do-mac-ngoai-nu', 1),
-(14, 2, 'Đồ thể thao nữ', 'do-the-thao-nu', 1),
-(15, 3, 'Bé trai', 'be-trai', 1),
-(16, 3, 'Bé gái', 'be-gai', 1),
-(17, 3, 'Đồ sơ sinh', 'do-so-sinh', 1),
-(18, 4, 'Túi xách', 'tui-xach', 1),
-(19, 4, 'Giày dép', 'giay-dep', 1),
-(20, 4, 'Mũ & Nón', 'mu-non', 1),
-(21, 4, 'Thắt lưng', 'that-lung', 1),
-(22, 4, 'Khăn & Vớ', 'khan-vo', 1),
-(23, 5, 'New Arrival', 'new-arrival', 1),
-(24, 5, 'Best Seller', 'best-seller', 1),
-(25, 5, 'Giảm giá', 'giam-gia', 1),
 (26, 1, 'test', 'test', 1);
 
 -- --------------------------------------------------------
