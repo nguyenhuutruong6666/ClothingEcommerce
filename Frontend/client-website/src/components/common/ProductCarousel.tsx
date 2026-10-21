@@ -67,7 +67,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
       {title && (
         <div className="flex items-center w-full gap-3 sm:gap-4 mb-5 sm:mb-6 lg:mb-8">
           <div className="h-[2px] bg-gradient-to-r from-[#111111] to-[#EEEEEE] flex-1" />
-          <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 whitespace-nowrap">
+          <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 whitespace-nowrap relative -top-[2px] sm:-top-[3px]">
             {title}
           </h2>
           <div className="h-[2px] bg-gradient-to-r from-[#EEEEEE] to-[#111111] flex-1" />

@@ -43,45 +43,41 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Breadcrumb Header Bar - Đồng nhất 100% padding toàn web */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-3.5 sm:py-4">
-          <div className="flex items-center justify-between gap-4">
-            <Breadcrumb className="hidden sm:block">
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <Link href="/" className="hover:text-black transition-colors">
-                    Trang chủ
-                  </Link>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <Link href="/news" className="hover:text-black transition-colors">
-                    Chính sách & Tin tức
-                  </Link>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <span className="text-gray-900 font-medium line-clamp-1 max-w-[200px] md:max-w-md">
-                    {article.title}
-                  </span>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-
-            <Link
-              href="/news"
-              className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-black transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 mr-1.5" />
-              Tất cả chính sách
-            </Link>
-          </div>
-        </div>
-      </div>
-
       {/* Main Content Area - Trải rộng chuẩn full-width đồng nhất padding left/right */}
-      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12 flex-1">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 pt-1 sm:pt-1.5 pb-8 sm:pb-10 lg:pb-12 flex-1">
+        {/* Breadcrumb Header Bar */}
+        <div className="flex items-center justify-between gap-4 mb-2 sm:mb-2.5">
+          <Breadcrumb className="hidden sm:block">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <Link href="/" className="hover:text-black transition-colors">
+                  Trang chủ
+                </Link>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <Link href="/news" className="hover:text-black transition-colors">
+                  Chính sách & Tin tức
+                </Link>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <span className="text-gray-900 font-medium line-clamp-1 max-w-[200px] md:max-w-md">
+                  {article.title}
+                </span>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+
+          <Link
+            href="/news"
+            className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-black transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 mr-1.5" />
+            Tất cả chính sách
+          </Link>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Main Article Column */}
           <article className="lg:col-span-8 xl:col-span-8 bg-white rounded-2xl border border-stone-200/90 shadow-xs p-6 sm:p-10 lg:p-12">

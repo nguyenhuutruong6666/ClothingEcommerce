@@ -275,11 +275,10 @@ export default function ProductDetailPage() {
   }
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb - RESPONSIVE */}
-      <div className="bg-white border-b">
-        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-3.5 sm:py-4">
-          {/* Breadcrumb using shadcn/ui */}
-          <Breadcrumb className="hidden sm:block">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 pt-1 sm:pt-1.5 pb-8 sm:pb-10 lg:pb-12">
+        {/* Breadcrumb - RESPONSIVE */}
+        <div className="hidden sm:block mb-2 sm:mb-2.5">
+          <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
                   <Link href="/">Trang chủ</Link>
@@ -306,13 +305,9 @@ export default function ProductDetailPage() {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-
-          {/* Back button */}
         </div>
-      </div>
 
-      {/* Main content - FIXED RESPONSIVE */}
-      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12">
+        {/* Main content - FIXED RESPONSIVE */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
           {/* Product Images - FIXED FOR MOBILE */}
           <div className="w-full">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Product, useProductStore } from "@/stores/productStore";
 import { useCategoryStore } from "@/stores/categoryStore";
@@ -31,12 +31,20 @@ export default function SubCategoryPage() {
   const [displayCount, setDisplayCount] = useState(12);
   const [isLoading, setIsLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Stores
   const { getPublishedProducts } = useProductStore();
-  const { getCategoryBySlug } = useCategoryStore();
+  const { getCategoryBySlug, categories, fetchCategories } = useCategoryStore();
   const { colors } = useColorStore();
   const { sizes } = useSizeStore();
+
+  useEffect(() => {
+    setIsMounted(true);
+    if (categories.length === 0) {
+      fetchCategories();
+    }
+  }, [fetchCategories, categories.length]);
   // Filters state
   const [filters, setFilters] = useState<Filters>({
     priceRange: [0, 5000000],
@@ -193,27 +201,33 @@ export default function SubCategoryPage() {
     });
     setDisplayCount(12);
   };
+  if (!isMounted) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh] bg-gray-50">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-12 h-12 border-4 border-gray-200 border-t-gray-800 rounded-full animate-spin"></div>
+          <p className="text-gray-600 text-sm font-medium">Đang tải...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-3.5 sm:py-4">
-          {/* Breadcrumb using shadcn/ui */}
-          <Breadcrumb className="hidden sm:block">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 pt-1 sm:pt-1.5 pb-8 sm:pb-10 lg:pb-12">
+        {/* Breadcrumb */}
+        <div className="hidden sm:block mb-2 sm:mb-2.5">
+          <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
                 <Link href="/">Trang chủ</Link>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem>{categoryTitle}</BreadcrumbItem>
+              <BreadcrumbItem suppressHydrationWarning>{categoryTitle}</BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-
-          {/* Back button */}
         </div>
-      </div>
 
-      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12">
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {/* Mobile Overlay Backdrop */}
           {showFilters && (

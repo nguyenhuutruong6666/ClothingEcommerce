@@ -53,7 +53,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
         <div className="flex items-center w-full gap-4 px-8 max-w-6xl mx-auto my-10">
           <div className="h-[2px] bg-gradient-to-r from-[#111111] to-[#EEEEEE] flex-1" />
           {title && (
-            <h2 className="text-xl md:text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-xl md:text-3xl font-bold text-gray-900 mb-2 relative -top-[2px] sm:-top-[3px]">
               {title}
             </h2>
           )}

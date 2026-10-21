@@ -1,70 +1,47 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { Search, Menu, X, Phone, Mail, User, Headphones, ChevronDown } from "lucide-react";
 import { CartSheet } from "@/components/common/CartSheet";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import useAuthStore from "@/stores/useAuthStore";
 import { useCategoryStore } from "@/stores/categoryStore";
 import Logo from "../common/Logo";
 import SearchBar from "../common/SearchBar";
-
-// Component ListItem
-const ListItem = ({
-  className,
-  title,
-  children,
-  href,
-  ...props
-}: {
-  className?: string;
-  title: string;
-  children?: React.ReactNode;
-  href: string;
-}) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <Link
-          href={href}
-          className={cn(
-            "space-y-1 rounded-md p-3 leading-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm text-left uppercase font-medium leading-none">
-            {title}
-          </div>
-          <p className="text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </Link>
-      </NavigationMenuLink>
-    </li>
-  );
-};
+import { Button } from "@/components/ui/button";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openCategory, setOpenCategory] = useState<number | null>(null);
+  const [openDesktopCategory, setOpenDesktopCategory] = useState<number | null>(null);
+  const desktopNavRef = useRef<HTMLElement>(null);
   const { authUser } = useAuthStore();
   const { categories, fetchCategories } = useCategoryStore();
 
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
+
+  // Click outside to close desktop category dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        desktopNavRef.current &&
+        !desktopNavRef.current.contains(event.target as Node)
+      ) {
+        setOpenDesktopCategory(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleCloseDesktopMenu = useCallback(() => {
+    setOpenDesktopCategory(null);
+  }, []);
 
   // Scroll shadow effect
   useEffect(() => {
@@ -73,12 +50,14 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menu on resize to desktop
+  // Close menu on resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setIsMenuOpen(false);
         setIsSearchOpen(false);
+      } else {
+        setOpenDesktopCategory(null);
       }
     };
     window.addEventListener("resize", handleResize);
@@ -115,7 +94,7 @@ export default function Header() {
 
       {/* Top Header Bar - Mobile */}
       <div className="bg-black text-white py-1.5 text-xs md:hidden">
-        <div className="w-full mx-auto px-5 sm:px-8">
+        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-1.5">
               <Phone className="w-3 h-3" />
@@ -127,8 +106,8 @@ export default function Header() {
 
       <header
         className={cn(
-          "bg-[#fafafa] sticky top-0 z-50 py-1 md:py-2 transition-shadow duration-200",
-          scrolled && "shadow-md"
+          "bg-white/95 backdrop-blur-md border-b border-gray-200/70 sticky top-0 z-50 py-1 md:py-2 transition-all duration-200",
+          scrolled && "shadow-md border-transparent"
         )}
       >
         <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
@@ -141,82 +120,116 @@ export default function Header() {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:block">
-              <NavigationMenu>
-                <NavigationMenuList>
-                  {/* Trang chủ */}
-                  <NavigationMenuItem className="px-1 lg:px-2">
-                    <Link href="/">
-                      <NavigationMenuLink asChild>
-                        <span className="uppercase font-bold text-sm lg:text-base">Trang chủ</span>
-                      </NavigationMenuLink>
+            <nav ref={desktopNavRef} className="hidden md:flex items-center gap-1 lg:gap-2">
+              {/* Trang chủ */}
+              <Link
+                href="/"
+                onClick={handleCloseDesktopMenu}
+                className="px-2.5 lg:px-3 py-2 uppercase font-bold text-sm lg:text-base text-gray-800 hover:text-black hover:bg-gray-100/70 rounded-md transition-colors"
+              >
+                Trang chủ
+              </Link>
+
+              {parentCategories.map((parent) => {
+                const children = categories.filter(
+                  (child) =>
+                    child.parentId?.id === parent.id && child.isActive
+                );
+
+                if (children.length === 0) {
+                  return (
+                    <Link
+                      key={parent.id}
+                      href={`/categories/${parent.slug}`}
+                      onClick={handleCloseDesktopMenu}
+                      className="px-2.5 lg:px-3 py-2 uppercase font-bold text-sm lg:text-base text-gray-800 hover:text-black hover:bg-gray-100/70 rounded-md transition-colors"
+                    >
+                      {parent.name}
                     </Link>
-                  </NavigationMenuItem>
+                  );
+                }
 
-                  {parentCategories.map((parent) => {
-                    const children = categories.filter(
-                      (child) =>
-                        child.parentId?.id === parent.id && child.isActive
-                    );
-                    if (children.length === 0) {
-                      return (
-                        <NavigationMenuItem key={parent.id} className="px-1 lg:px-2">
-                          <Link href={`/categories/${parent.slug}`}>
-                            <NavigationMenuLink asChild>
-                              <span className="uppercase font-bold text-sm lg:text-base">
-                                {parent.name}
-                              </span>
-                            </NavigationMenuLink>
-                          </Link>
-                        </NavigationMenuItem>
-                      );
-                    }
+                const isOpen = openDesktopCategory === parent.id;
 
-                    return (
-                      <NavigationMenuItem key={parent.id} className="px-1 lg:px-2">
-                        <NavigationMenuTrigger className="uppercase font-bold text-sm lg:text-base">
-                          <Link
-                            href={`/categories/${parent.slug}`}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            {parent.name}
-                          </Link>
-                        </NavigationMenuTrigger>
+                return (
+                  <div key={parent.id} className="relative">
+                    {/* Nút danh mục cấp 1 - Click để mở/đóng, không hover */}
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setOpenDesktopCategory((prev) =>
+                          prev === parent.id ? null : parent.id
+                        )
+                      }
+                      className={cn(
+                        "flex items-center gap-1 px-2.5 lg:px-3 py-2 uppercase font-bold text-sm lg:text-base transition-colors rounded-md cursor-pointer select-none",
+                        isOpen
+                          ? "text-black bg-gray-100"
+                          : "text-gray-800 hover:text-black hover:bg-gray-100/70"
+                      )}
+                      aria-expanded={isOpen}
+                    >
+                      <span>{parent.name}</span>
+                      <ChevronDown
+                        className={cn(
+                          "w-3.5 h-3.5 lg:w-4 lg:h-4 transition-transform duration-200 text-gray-500",
+                          isOpen && "rotate-180 text-black"
+                        )}
+                      />
+                    </button>
 
-                        <NavigationMenuContent>
-                          <ul className="grid w-[320px] gap-2 md:w-[400px] md:grid-cols-2 lg:w-[500px] p-3 md:p-4">
-                            {children.map((child) => (
-                              <ListItem
-                                key={child.id}
-                                title={child.name}
-                                href={`/categories/${parent.slug}/${child.slug}`}
-                              ></ListItem>
-                            ))}
-                          </ul>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                    );
-                  })}
+                    {/* Menu cấp 2 (Dropdown) - Căn thẳng hàng lề trái với menu cấp 1 (left-0), khi click mục con thì đóng menu */}
+                    {isOpen && (
+                      <div className="absolute top-full left-0 mt-1.5 w-48 sm:w-52 bg-white rounded-xl shadow-xl border border-gray-100 p-1.5 z-50 animate-in fade-in-0 zoom-in-95 duration-150">
+                        {/* Tất cả {parent.name} */}
+                        <Link
+                          href={`/categories/${parent.slug}`}
+                          onClick={handleCloseDesktopMenu}
+                          className="flex items-center justify-between px-3 py-2 text-xs uppercase font-bold tracking-wider text-gray-500 hover:text-black hover:bg-gray-50 rounded-lg transition-colors border-b border-gray-100 mb-1"
+                        >
+                          <span>Tất cả {parent.name}</span>
+                          <span className="text-[11px] text-gray-400">→</span>
+                        </Link>
 
-                  <NavigationMenuItem className="px-1 lg:px-2">
-                    <Link href="/news">
-                      <NavigationMenuLink asChild>
-                        <span className="uppercase font-bold text-sm lg:text-base">Tin tức</span>
-                      </NavigationMenuLink>
-                    </Link>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
+                        {/* Danh sách danh mục con */}
+                        <div className="flex flex-col space-y-0.5">
+                          {children.map((child) => (
+                            <Link
+                              key={child.id}
+                              href={`/categories/${parent.slug}/${child.slug}`}
+                              onClick={handleCloseDesktopMenu}
+                              className="block px-3 py-2 text-sm text-gray-700 hover:text-black hover:bg-gray-100/80 rounded-lg transition-colors font-medium"
+                            >
+                              {child.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+              {/* Tin tức */}
+              <Link
+                href="/news"
+                onClick={handleCloseDesktopMenu}
+                className="px-2.5 lg:px-3 py-2 uppercase font-bold text-sm lg:text-base text-gray-800 hover:text-black hover:bg-gray-100/70 rounded-md transition-colors"
+              >
+                Tin tức
+              </Link>
+            </nav>
 
             {/* Right Actions: Search, Cart, User, Hamburger */}
-            <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
+            <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2">
               {/* Desktop Search */}
               <SearchBar className="hidden md:block" />
 
               {/* Mobile Search Button */}
-              <button
-                className="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden text-gray-700 hover:text-gray-900"
                 onClick={() => {
                   setIsSearchOpen(!isSearchOpen);
                   setIsMenuOpen(false);
@@ -224,21 +237,29 @@ export default function Header() {
                 aria-label="Tìm kiếm"
               >
                 <Search className="w-5 h-5" />
-              </button>
+              </Button>
 
               <CartSheet />
 
-              <Link
-                href={authUser ? "/user" : "/user/login"}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                aria-label="Tài khoản"
+              <Button
+                variant="ghost"
+                size="icon"
+                asChild
+                className="text-gray-700 hover:text-gray-900 md:-mr-2"
               >
-                <User className="w-5 h-5" />
-              </Link>
+                <Link
+                  href={authUser ? "/user" : "/user/login"}
+                  aria-label="Tài khoản"
+                >
+                  <User className="w-5 h-5" />
+                </Link>
+              </Button>
 
               {/* Mobile Hamburger */}
-              <button
-                className="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden text-gray-700 hover:text-gray-900 -mr-2"
                 onClick={() => {
                   setIsMenuOpen(!isMenuOpen);
                   setIsSearchOpen(false);
@@ -250,7 +271,7 @@ export default function Header() {
                 ) : (
                   <Menu className="w-5 h-5" />
                 )}
-              </button>
+              </Button>
             </div>
           </div>
 

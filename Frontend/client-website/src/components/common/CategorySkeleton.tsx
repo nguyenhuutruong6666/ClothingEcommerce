@@ -3,18 +3,15 @@ import React from "react";
 const CategorySkeleton: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 animate-pulse">
-      {/* Breadcrumb Skeleton */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 pt-1 sm:pt-1.5 pb-8 sm:pb-10 lg:pb-12">
+        {/* Breadcrumb Skeleton */}
+        <div className="hidden sm:block mb-2 sm:mb-2.5">
           <div className="flex space-x-2">
             <div className="h-4 bg-gray-300 rounded w-16"></div>
             <div className="h-4 bg-gray-300 rounded w-4"></div>
             <div className="h-4 bg-gray-300 rounded w-24"></div>
           </div>
         </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header Skeleton */}
         <div className="mb-8">
           <div className="h-8 bg-gray-300 rounded w-48 mb-2"></div>

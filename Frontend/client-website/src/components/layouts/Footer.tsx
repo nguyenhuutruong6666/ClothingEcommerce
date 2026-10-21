@@ -9,7 +9,6 @@ import {
   Phone,
   Mail,
   Clock,
-  ArrowRight,
   ShieldCheck,
   CheckCircle2,
 } from "lucide-react";
@@ -112,24 +111,14 @@ export default function Footer() {
     },
   ];
 
-  const shoppingCategories = [
-    { title: "Thời trang Nam", href: "/categories/nam" },
-    { title: "Thời trang Nữ", href: "/categories/nu" },
-    { title: "Thời trang Trẻ em", href: "/categories/tre-em" },
-    { title: "Phụ kiện cao cấp", href: "/categories/phu-kien" },
-    { title: "Sản phẩm mới nhất", href: "/" },
-  ];
-
-  const paymentBadges = ["COD", "VNPAY", "MOMO", "VISA", "MASTERCARD"];
-
   return (
     <footer className="bg-black text-white w-full border-t border-zinc-900">
       {/* Main Footer Container */}
       <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
           
-          {/* Cột 1: Thông tin thương hiệu & Đăng ký nhận tin (4 cột trên desktop) */}
-          <div className="sm:col-span-1 lg:col-span-4 flex flex-col justify-between h-full">
+          {/* Cột 1: Thông tin thương hiệu (5 cột trên desktop) */}
+          <div className="sm:col-span-2 lg:col-span-5 flex flex-col justify-between h-full">
             <div>
               <Link href="/" className="inline-block mb-3">
                 <span className="font-extrabold text-2xl sm:text-3xl tracking-wider text-white uppercase">
@@ -161,28 +150,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Cột 2: Danh mục mua sắm (2 cột trên desktop) */}
-          <div className="sm:col-span-1 lg:col-span-2">
-            <h3 className="font-bold text-sm sm:text-base uppercase tracking-wider text-white mb-3.5 sm:mb-4 pb-1.5 border-b border-zinc-800 inline-block">
-              Mua sắm
-            </h3>
-            <ul className="space-y-2.5">
-              {shoppingCategories.map((item) => (
-                <li key={item.title}>
-                  <Link
-                    href={item.href}
-                    className="text-xs sm:text-sm text-zinc-400 hover:text-white transition-colors flex items-center group"
-                  >
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      {item.title}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Cột 3: Chính sách bán hàng (3 cột trên desktop) */}
+          {/* Cột 2: Chính sách bán hàng (3 cột trên desktop) */}
           <div className="sm:col-span-1 lg:col-span-3">
             <h3 className="font-bold text-sm sm:text-base uppercase tracking-wider text-white mb-3.5 sm:mb-4 pb-1.5 border-b border-zinc-800 inline-block">
               Chính sách bán hàng
@@ -200,20 +168,11 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/news"
-                  className="text-xs sm:text-sm font-semibold text-zinc-300 hover:text-white transition-colors inline-flex items-center gap-1 group mt-1"
-                >
-                  <span>Tất cả điều khoản</span>
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Cột 4: Thông tin liên hệ & Hỗ trợ (3 cột trên desktop) */}
-          <div className="sm:col-span-1 lg:col-span-3">
+          {/* Cột 3: Thông tin liên hệ & Hỗ trợ (4 cột trên desktop) */}
+          <div className="sm:col-span-1 lg:col-span-4">
             <h3 className="font-bold text-sm sm:text-base uppercase tracking-wider text-white mb-3.5 sm:mb-4 pb-1.5 border-b border-zinc-800 inline-block">
               Thông tin liên hệ
             </h3>

@@ -12,9 +12,10 @@ import { ArrowRight, Calendar, ShieldCheck } from "lucide-react";
 export default function NewsPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Breadcrumb Header Bar */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-3.5 sm:py-4">
+      {/* Main Content - Đồng nhất 100% padding toàn web */}
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 pt-1 sm:pt-1.5 pb-8 sm:pb-10 lg:pb-12 flex-1">
+        {/* Breadcrumb */}
+        <div className="hidden sm:block mb-2 sm:mb-2.5">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -31,10 +32,6 @@ export default function NewsPage() {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-      </div>
-
-      {/* Main Content - Đồng nhất 100% padding toàn web */}
-      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12 flex-1">
         {/* Title Section */}
         <div className="text-center mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 text-stone-800 text-xs font-semibold uppercase tracking-wider mb-3">

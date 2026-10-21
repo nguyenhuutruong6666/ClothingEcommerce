@@ -90,10 +90,10 @@ export default function SearchPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-3.5 sm:py-4">
-          <Breadcrumb className="hidden sm:block">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 pt-1 sm:pt-1.5 pb-8 sm:pb-10 lg:pb-12">
+        {/* Breadcrumb */}
+        <div className="hidden sm:block mb-2 sm:mb-2.5">
+          <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
                 <Link href="/">Trang chủ</Link>
@@ -105,9 +105,7 @@ export default function SearchPage() {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-      </div>
 
-      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12">
         {/* Header */}
         <div className="mb-8">
           <Link

@@ -72,22 +72,6 @@ export default function UserLayout({ children }: UserLayoutProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-3.5 sm:py-4">
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <Link
-              href="/"
-              className="hover:text-gray-900 flex items-center"
-            >
-              <Home className="h-4 w-4 mr-1" />
-              <span className="hidden sm:inline">Trang chủ</span>
-            </Link>
-            <ChevronRight className="h-4 w-4" />
-            <span className="text-gray-900">Tài khoản</span>
-          </div>
-        </div>
-      </div>
 
       {/* Mobile Tab Navigation */}
       <div className="lg:hidden bg-white border-b sticky top-0 z-40 shadow-sm">
@@ -151,7 +135,22 @@ export default function UserLayout({ children }: UserLayoutProps) {
         </div>
       </div>
 
-      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-10 lg:py-12">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 pt-1 sm:pt-1.5 pb-8 sm:pb-10 lg:pb-12">
+        {/* Breadcrumb */}
+        <div className="hidden sm:block mb-2 sm:mb-2.5">
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <Link
+              href="/"
+              className="hover:text-gray-900 flex items-center"
+            >
+              <Home className="h-4 w-4 mr-1" />
+              <span className="hidden sm:inline">Trang chủ</span>
+            </Link>
+            <ChevronRight className="h-4 w-4" />
+            <span className="text-gray-900">Tài khoản</span>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
           {/* Sidebar — Desktop only */}
           <div className="hidden lg:block lg:col-span-3">
