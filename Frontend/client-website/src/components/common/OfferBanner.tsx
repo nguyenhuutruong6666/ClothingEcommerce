@@ -23,7 +23,7 @@ export default function OfferBanner() {
             }));
     }, [coupons]);
   return (
-    <section className="py-8 sm:py-12 lg:py-16">
+    <section className="py-6 sm:py-8 lg:py-10">
       <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
         <div className="relative h-[160px] xxs:h-[200px] xs:h-[260px] sm:h-[320px] md:h-[420px] lg:h-[520px] xl:h-[600px] w-full overflow-hidden rounded-xl sm:rounded-2xl shadow-xs">
           {/* Background Image */}

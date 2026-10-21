@@ -23,7 +23,7 @@ export default function GridLetter() {
   // Sử dụng coupon banners nếu có, không thì dùng banner mặc định
 
   return (
-    <section className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-12 lg:py-16">
+    <section className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 py-6 sm:py-8 lg:py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mx-auto">
         {couponBanners.slice(0, 2).map((item, index) => (
           <div

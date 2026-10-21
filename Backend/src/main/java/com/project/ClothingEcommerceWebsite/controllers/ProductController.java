@@ -35,6 +35,7 @@ public class ProductController {
                 .category(null)
                 .sizes(null)
                 .colors(null)
+                .soldCount(0L)
                 .build();
         return ResponseEntity.ok(productResponse);
     }

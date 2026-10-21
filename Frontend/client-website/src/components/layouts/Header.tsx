@@ -121,12 +121,6 @@ export default function Header() {
               <Phone className="w-3 h-3" />
               <span>1900 1234</span>
             </div>
-            <Link href="/support" className="transition-colors">
-              <div className="flex items-center space-x-1.5">
-                <Headphones className="w-3 h-3" />
-                <span>SUPPORT</span>
-              </div>
-            </Link>
           </div>
         </div>
       </div>

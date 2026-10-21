@@ -16,6 +16,7 @@ export interface ProductItemProps {
   images?: { image_url: string; position: number }[];
   rating?: number;
   reviewCount?: number;
+  soldCount?: number;
   isHovered?: boolean;
   isFocused?: boolean;
   isOutOfStock?: boolean;
@@ -34,6 +35,7 @@ export const convertProductToItemProps = (
     basePrice: product.basePrice,
     images: product.images?.sort((a, b) => a.position - b.position) || [],
     isOutOfStock,
+    soldCount: product.soldCount || 0,
     rating:
       product?.reviews && product.reviews.length > 0
         ? product.reviews.reduce((sum, review) => sum + review.rating, 0) /

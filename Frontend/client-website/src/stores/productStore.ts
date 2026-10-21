@@ -52,6 +52,7 @@ export interface Product {
   inventories?: Inventory[];
   // Computed fields
   totalQuantity?: number;
+  soldCount?: number;
 }
 interface ProductState {
   products: Product[];

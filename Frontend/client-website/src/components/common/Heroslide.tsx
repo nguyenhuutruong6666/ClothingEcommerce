@@ -32,8 +32,9 @@ export default function Heroslide() {
     const displayBanners = couponBanners.length > 0 ? couponBanners : banner;
 
     return (
-    <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24 pt-4 sm:pt-6">
-      <AutoSwiper className="rounded-xl sm:rounded-2xl overflow-hidden shadow-xs">
+    <section className="pt-4 sm:pt-6 pb-4 sm:pb-6 lg:pb-8">
+      <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
+        <AutoSwiper className="rounded-xl sm:rounded-2xl overflow-hidden shadow-xs">
         {displayBanners.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="relative w-full h-[180px] xxs:h-[220px] xs:h-[280px] sm:h-[360px] md:h-[480px] lg:h-[580px] xl:h-[680px]">
@@ -48,6 +49,7 @@ export default function Heroslide() {
           </SwiperSlide>
         ))}
       </AutoSwiper>
-    </div>
+      </div>
+    </section>
   );
 }

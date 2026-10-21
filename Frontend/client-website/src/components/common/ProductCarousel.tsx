@@ -65,13 +65,11 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
     <div className="w-full">
       {/* Header */}
       {title && (
-        <div className="flex items-center w-full gap-3 sm:gap-4 max-w-6xl mx-auto mb-6 sm:mb-8 md:mb-10">
+        <div className="flex items-center w-full gap-3 sm:gap-4 mb-5 sm:mb-6 lg:mb-8">
           <div className="h-[2px] bg-gradient-to-r from-[#111111] to-[#EEEEEE] flex-1" />
-          {title && (
-            <h2 className="text-base sm:text-2xl md:text-3xl font-bold text-gray-900 whitespace-nowrap">
-              {title}
-            </h2>
-          )}
+          <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 whitespace-nowrap">
+            {title}
+          </h2>
           <div className="h-[2px] bg-gradient-to-r from-[#EEEEEE] to-[#111111] flex-1" />
         </div>
       )}

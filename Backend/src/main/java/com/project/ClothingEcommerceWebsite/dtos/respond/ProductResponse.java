@@ -26,6 +26,7 @@ public class ProductResponse {
     private List<ProductVariant> variants;
     private List<Inventory> inventories;
     private List<ReviewResponse> reviews;
+    private Long soldCount;
 
 }
 

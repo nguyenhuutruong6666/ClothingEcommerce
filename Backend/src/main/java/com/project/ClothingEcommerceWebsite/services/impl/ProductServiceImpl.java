@@ -102,6 +102,18 @@ public class ProductServiceImpl implements ProductService {
         Map<Long, List<Review>> reviewsByProduct = allReviews.stream()
                 .collect(Collectors.groupingBy(r -> r.getProduct().getId()));
 
+        List<Object[]> soldData = orderItemRepository.getSoldCountsByProductId();
+        Map<Long, Long> soldCountByProduct = new HashMap<>();
+        if (soldData != null) {
+            for (Object[] row : soldData) {
+                if (row != null && row.length >= 2 && row[0] != null) {
+                    Long pId = ((Number) row[0]).longValue();
+                    Long count = row[1] != null ? ((Number) row[1]).longValue() : 0L;
+                    soldCountByProduct.put(pId, count);
+                }
+            }
+        }
+
         return products.stream()
                 .map(product -> {
                     Long productId = product.getId();
@@ -110,6 +122,7 @@ public class ProductServiceImpl implements ProductService {
                     List<ProductVariant> variants = variantsByProduct.getOrDefault(productId, Collections.emptyList());
                     List<Inventory> inventories = inventoriesByProduct.getOrDefault(productId, Collections.emptyList());
                     List<Review> reviews = reviewsByProduct.getOrDefault(productId, Collections.emptyList());
+                    Long soldCount = soldCountByProduct.getOrDefault(productId, 0L);
 
                     List<ProductImageResponse> imageDTOs = images.stream()
                             .map(image -> ProductImageResponse.builder()
@@ -169,6 +182,7 @@ public class ProductServiceImpl implements ProductService {
                             .colors(colorDTOs)
                             .images(imageDTOs)
                             .reviews(reviewDTOs)
+                            .soldCount(soldCount)
                             .build();
         }).collect(Collectors.toList());
     }
@@ -176,6 +190,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> searchByName(String name) {
         List<Product> products = productRepository.findByNameContainingIgnoreCase(name);
+        List<Object[]> soldData = orderItemRepository.getSoldCountsByProductId();
+        Map<Long, Long> soldCountByProduct = new HashMap<>();
+        if (soldData != null) {
+            for (Object[] row : soldData) {
+                if (row != null && row.length >= 2 && row[0] != null) {
+                    soldCountByProduct.put(((Number) row[0]).longValue(), row[1] != null ? ((Number) row[1]).longValue() : 0L);
+                }
+            }
+        }
         return products.stream()
                 .filter(Product::getIsPublished)
                 .map(p -> ProductResponse.builder()
@@ -194,6 +217,7 @@ public class ProductServiceImpl implements ProductService {
                         .basePrice(p.getBasePrice())
                         .category(p.getCategory())
                         .isPublished(p.getIsPublished())
+                        .soldCount(soldCountByProduct.getOrDefault(p.getId(), 0L))
                         .build())
                 .collect(Collectors.toList());
     }
@@ -205,6 +229,7 @@ public class ProductServiceImpl implements ProductService {
         List<Inventory> inventories = inventoryRepository.findAllByProductVariant_Product_Id(product.getId());
         List<ProductImage> images = productImageRepository.findAllByProductId(product.getId());
         List<ProductVariant> variants = productVariantRepository.findAllByProductId(product.getId());
+        Long soldCount = orderItemRepository.getSoldCountByProductId(id);
 
         List<ProductImageResponse> imageDTOs = images.stream()
                 .map(image -> ProductImageResponse.builder()
@@ -249,6 +274,7 @@ public class ProductServiceImpl implements ProductService {
                 .sizes(sizeDTOs)
                 .colors(colorDTOs)
                 .images(imageDTOs)
+                .soldCount(soldCount != null ? soldCount : 0L)
                 .build();
 
     }

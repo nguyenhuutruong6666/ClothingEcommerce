@@ -1,10 +1,8 @@
 import React from "react";
 import {
-  Coffee,
   Truck,
   CreditCard,
   Shield,
-  Smile,
   Handbag,
 } from "lucide-react";
 import {
@@ -24,45 +22,33 @@ interface PolicyItem {
 const policyData: PolicyItem[] = [
   {
     id: "quality",
-    icon: <Handbag className="w-10 h-10 md:w-12 md:h-12 text-black" />,
+    icon: <Handbag className="w-4 h-4 sm:w-5 sm:h-5 text-black flex-shrink-0" />,
     title: "Chính hãng",
     description: "100% Chính hãng",
   },
   {
     id: "delivery",
-    icon: <Truck className="w-10 h-10 md:w-12 md:h-12 text-black" />,
+    icon: <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-black flex-shrink-0" />,
     title: "Miễn phí vận chuyển",
-    description: "Áp dụng cho đơn hàng từ 500k",
+    description: "Áp dụng đơn từ 500k",
   },
   {
     id: "payment",
-    icon: <CreditCard className="w-10 h-10 md:w-12 md:h-12 text-black" />,
+    icon: <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-black flex-shrink-0" />,
     title: "Thanh toán đa dạng",
-    description: "Thanh toán khi nhận hàng,... ",
+    description: "COD, VNPAY, MOMO,...",
   },
   {
     id: "security",
-    icon: <Shield className="w-10 h-10 md:w-12 md:h-12 text-black" />,
+    icon: <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-black flex-shrink-0" />,
     title: "Bảo hành",
     description: "Lên đến 180 ngày",
   },
 ];
 
-// export default function ListPolicy() {
-//   return (
-//     <div className="border-t  py-2 ">
-//       <div className="container mx-auto ">
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 md:gap-4">
-
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 function ListPolicy() {
   return (
-    <section className="py-8 sm:py-12 lg:py-16 border-t bg-stone-50/60">
+    <section className="py-2.5 sm:py-3.5 lg:py-4 border-t border-stone-200/80 bg-stone-50/70">
       <div className="w-full mx-auto px-5 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24">
         <div className="flex size-full items-center justify-center">
           <Marquee>
@@ -71,15 +57,19 @@ function ListPolicy() {
             <MarqueeContent>
               {policyData.map((policy) => (
                 <MarqueeItem
-                  className="flex items-start text-start gap-3 py-2 md:py-4 px-5 space-x-4"
+                  className="flex items-center text-start gap-2.5 sm:gap-3 py-1 px-4 sm:px-6"
                   key={policy.id}
                 >
-                  {policy.icon}
+                  <div className="p-1.5 rounded-md bg-white border border-stone-200/70 shadow-2xs flex-shrink-0">
+                    {policy.icon}
+                  </div>
                   <div>
-                    <h3 className="text-lg font-bold text-gray-800 mb-1">
+                    <h3 className="text-xs sm:text-sm font-bold text-gray-900 leading-tight">
                       {policy.title}
                     </h3>
-                    <h4 className="text-gray-600">{policy.description}</h4>
+                    <p className="text-[11px] sm:text-xs text-gray-500 leading-tight mt-0.5">
+                      {policy.description}
+                    </p>
                   </div>
                 </MarqueeItem>
               ))}

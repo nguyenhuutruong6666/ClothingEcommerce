@@ -35,11 +35,11 @@ export default function Home() {
   return (
     <div className=" mx-auto">
       <Heroslide />
-      <FeaturedProducts products={products} />
-      <GridLetter />
-      <BestSellerProduct products={products} />
-      <OfferBanner />
       <NewsProduct products={products} />
+      <FeaturedProducts products={products} />
+      {/* <GridLetter /> */}
+      <BestSellerProduct products={products} />
+      {/* <OfferBanner /> */}
       <ListPolicy />
     </div>
   );
